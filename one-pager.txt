@@ -1,0 +1,15 @@
+Speed Kana – Kana Practice App
+
+An app that uses a flashcard-based system to train Kana recognition and reading speed.
+
+The main feature of the app is the test feature. A test consists of displaying the Kana symbols to the user one at a time and taking the user's input. The user should type the Romaji version of the character. For each character, the user's answer is checked and if correct, there should be a brief indication of correctness (for example, highlighting the character green), before moving on to the next character. If the user's answer is incorrect, there should be a similar indication, but for incorrectness (for example, highlighting the character red).
+
+The test is timed and the timer starts when the user presses the start button and ends when the user has completed all the questions. After the test ends, the user is given statistics for that test, such as number/percentage correct and time taken. When the user's answer is highlighted, the timer should be paused.
+
+The timer will be enabled by default but can be disabled.
+
+There will be three different test modes: Hiragana only, Katakana only and both syllabaries combined.
+
+There will be a statistics page, which will contain more detailed information than what is presented immediately after a test. Such information will include the frequency of characters appearing and the number/percentage correct for each character and graphs showing progress over time.
+
+There could also be an option to customise the tests so the user can choose exactly which Kana they practise. Other customisation options include themes, font colours, font sizes and so on.
