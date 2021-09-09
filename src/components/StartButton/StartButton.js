@@ -1,7 +1,7 @@
 const StartButton = () => {
     return (
         <div>
-            Start Button
+            <button>Start</button>
         </div>
     )
 }

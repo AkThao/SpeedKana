@@ -1,6 +1,10 @@
 const Title = () => {
     return (
-        "SpeedKana"
+        <div>
+            <h1>
+                SpeedKana
+            </h1>
+        </div>
     )
 }
 

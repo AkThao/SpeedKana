@@ -1,7 +1,7 @@
 const AppSettingsButton = () => {
     return (
         <div>
-            App Settings Button
+            <button>App Settings</button>
         </div>
     )
 }

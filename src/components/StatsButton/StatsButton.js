@@ -1,7 +1,7 @@
 const StatsButton = () => {
     return (
         <div>
-            Stats Button
+            <button>Stats</button>
         </div>
     )
 }
