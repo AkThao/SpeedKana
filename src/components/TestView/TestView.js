@@ -1,9 +1,9 @@
 import TestLogic from "./TestLogic/TestLogic";
 
-const TestView = () => {
+const TestView = (props) => {
     return (
         <div>
-            <TestLogic />
+            <TestLogic changeAppView={props.changeAppView} />
         </div>
     );
 };

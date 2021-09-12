@@ -1,7 +1,11 @@
-const EndButton = () => {
+const EndButton = (props) => {
+    const handleClick = () => {
+        props.onClick("MAIN");
+    }
+
     return (
         <div>
-            <button>End Button</button>
+            <button onClick={handleClick}>End Button</button>
         </div>
     );
 };

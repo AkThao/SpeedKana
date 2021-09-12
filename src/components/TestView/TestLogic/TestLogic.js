@@ -6,7 +6,7 @@ import Timer from "../Timer/Timer";
 import PauseButton from "../PauseButton/PauseButton";
 import EndButton from "../EndButton/EndButton";
 
-const Test = () => {
+const Test = (props) => {
     return (
         <div>
             <TestCharacter />
@@ -15,7 +15,7 @@ const Test = () => {
             <ProgressBar />
             <Timer />
             <PauseButton />
-            <EndButton />
+            <EndButton onClick={props.changeAppView} />
         </div>
     );
 };

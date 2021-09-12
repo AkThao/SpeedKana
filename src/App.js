@@ -21,7 +21,7 @@ function App() {
         case APP_VIEWS.MAIN:
             return <MainView changeAppView={changeAppView} />;
         case APP_VIEWS.TEST:
-            return <TestView />;
+            return <TestView changeAppView={changeAppView} />;
         default:
             return <MainView />;
     }
