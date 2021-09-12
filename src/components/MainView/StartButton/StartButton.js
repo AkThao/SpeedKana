@@ -1,7 +1,11 @@
-const StartButton = () => {
+const StartButton = (props) => {
+    const handleClick = () => {
+        props.onClick("TEST");
+    }
+
     return (
         <div>
-            <button>Start</button>
+            <button onClick={handleClick}>Start</button>
         </div>
     )
 }

@@ -4,11 +4,11 @@ import TestSettings from "./TestSettings/TestSettings";
 import StatsButton from "./StatsButton/StatsButton";
 import AppSettingsButton from "./AppSettingsButton/AppSettingsButton";
 
-const MainView = () => {
+const MainView = (props) => {
     return (
         <div>
             <Title />
-            <StartButton />
+            <StartButton onClick={props.changeAppView} />
             <TestSettings />
             <StatsButton />
             <AppSettingsButton />

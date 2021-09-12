@@ -13,13 +13,17 @@ const APP_VIEWS = {
 function App() {
     const [appView, setAppView] = useState(APP_VIEWS.MAIN);
 
-    switch(appView) {
+    const changeAppView = newView => {
+        setAppView(APP_VIEWS[newView]);
+    };
+
+    switch (appView) {
         case APP_VIEWS.MAIN:
-            return <MainView />
+            return <MainView changeAppView={changeAppView} />;
         case APP_VIEWS.TEST:
-            return <TestView />
+            return <TestView />;
         default:
-            return <MainView />
+            return <MainView />;
     }
 }
 
