@@ -1,11 +1,9 @@
-import BottomPanel from "./BottomPanel/BottomPanel";
-import Test from "./Test/Test";
+import TestLogic from "./TestLogic/TestLogic";
 
 const TestView = () => {
     return (
         <div>
-            <BottomPanel />
-            <Test />
+            <TestLogic />
         </div>
     );
 };

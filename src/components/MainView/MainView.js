@@ -1,13 +1,17 @@
 import Title from "./Title/Title";
-import LeftPanel from "./LeftPanel/LeftPanel";
-import RightPanel from "./RightPanel/RightPanel";
+import StartButton from "./StartButton/StartButton";
+import TestSettings from "./TestSettings/TestSettings";
+import StatsButton from "./StatsButton/StatsButton";
+import AppSettingsButton from "./AppSettingsButton/AppSettingsButton";
 
 const MainView = () => {
     return (
         <div>
             <Title />
-            <LeftPanel />
-            <RightPanel />
+            <StartButton />
+            <TestSettings />
+            <StatsButton />
+            <AppSettingsButton />
         </div>
     );
 };
