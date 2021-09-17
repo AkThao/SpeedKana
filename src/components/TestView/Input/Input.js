@@ -1,7 +1,11 @@
-const Input = () => {
+const Input = props => {
+    const handleChange = (e) => {
+        props.changeAnswer(e.target.value);
+    }
+
     return (
         <div>
-            Input
+            <input type="text" onChange={handleChange} />
         </div>
     );
 };
