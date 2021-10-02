@@ -1,7 +1,7 @@
-const Timer = () => {
+const Timer = props => {
     return (
         <div>
-            Timer
+            Timer: {props.time}
         </div>
     );
 };
