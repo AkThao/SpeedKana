@@ -12,11 +12,13 @@ const Test = props => {
     const [inputAnswer, setInputAnswer] = useState("");
     const [timeElapsed, setTimeElapsed] = useState(0);
     const [complete, setComplete] = useState(false);
+    const [paused, setPaused] = useState(false);
     const [disabledInput, setDisabledInput] = useState(false);
     const [testChar, setTestChar] = useState("");
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [incorrectAnswers, setIncorrectAnswers] = useState(0);
     const [remainingChars, setRemainingChars] = useState(null);
+    const [pausedTime, setPausedTime] = useState(0);
     const testSet = useRef({});
     const timerIntervalRef = useRef(0);
     const startTimeRef = useRef(Date.now());
@@ -57,6 +59,23 @@ const Test = props => {
                 keys[keys.length * Math.random() << 0] // The << (left-shift) operator fixes the index by coercing the floating-point operand into a 32-bit integer
             ))
         }
+    }
+
+    const pause = () => {
+        setPaused(true);
+        setPausedTime(timeElapsed);
+        clearInterval(timerIntervalRef.current);
+        setDisabledInput(true);
+    }
+
+    const resume = () => {
+        setPaused(false);
+        startTimeRef.current = Date.now();
+        timerIntervalRef.current = setInterval(() => {
+            let delta = ((Date.now() - startTimeRef.current) / 1000) + pausedTime;
+            setTimeElapsed(Math.floor(delta));
+        }, 1000);
+        setDisabledInput(false);
     }
 
     const completeTest = () => {
@@ -102,7 +121,7 @@ const Test = props => {
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} disabled={disabledInput} />
             <ProgressBar />
             <Timer time={timeElapsed} />
-            <PauseButton />
+            <PauseButton paused={paused} onPause={pause} onResume={resume} disabled={disabledInput} />
             <EndButton onClick={props.changeAppView} />
             <div>{testChar}</div>
             <div>{inputAnswer}</div>
