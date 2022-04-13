@@ -12,7 +12,7 @@ const MainView = (props) => {
             <StartButton onClick={props.changeAppView} />
             <TestSettings />
             <LastTestScore />
-            <StatsButton />
+            <StatsButton onClick={props.changeAppView} />
             <AppSettingsButton />
         </div>
     );

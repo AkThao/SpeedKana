@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import MainView from "./components/MainView/MainView";
 import TestView from "./components/TestView/TestView";
+import StatsView from "./components/StatsView/StatsView";
 
 const APP_VIEWS = {
     MAIN: "main",
@@ -22,6 +23,8 @@ function App() {
             return <MainView changeAppView={changeAppView} />;
         case APP_VIEWS.TEST:
             return <TestView changeAppView={changeAppView} />;
+        case APP_VIEWS.STATS:
+            return <StatsView changeAppView={changeAppView} />;
         default:
             return <MainView />;
     }
