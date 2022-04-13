@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
-import MainView from "./components/MainView/MainView";
-import TestView from "./components/TestView/TestView";
-import StatsView from "./components/StatsView/StatsView";
+import MainView from "./components/Views/MainView/MainView";
+import TestView from "./components/Views/TestView/TestView";
+import StatsView from "./components/Views/StatsView/StatsView";
 
 const APP_VIEWS = {
     MAIN: "main",

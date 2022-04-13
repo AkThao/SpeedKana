@@ -6,7 +6,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import Timer from "../Timer/Timer";
 import PauseButton from "../PauseButton/PauseButton";
 import EndButton from "../EndButton/EndButton";
-import kana from "../../../kana.json";
+import kana from "../../../../kana.json";
 
 const Test = props => {
     const [inputAnswer, setInputAnswer] = useState("");
