@@ -3,9 +3,16 @@ const Input = props => {
         props.changeAnswer(e.target.value);
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        props.submitAnswer();
+    }
+
     return (
         <div>
-            <input type="text" onChange={handleChange} />
+            <form onSubmit={handleSubmit}>
+                <input type="text" value={props.answer} onChange={handleChange} disabled={props.disabled} />
+            </form>
         </div>
     );
 };
