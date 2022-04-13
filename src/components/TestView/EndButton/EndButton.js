@@ -5,7 +5,7 @@ const EndButton = (props) => {
 
     return (
         <div>
-            <button onClick={handleClick}>End Button</button>
+            <button onClick={handleClick}>End Test</button>
         </div>
     );
 };
