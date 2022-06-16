@@ -9,7 +9,7 @@ const Title = () => {
     // }, []);
 
     // const fetchTitle = () => {
-    //     fetch("http://localhost:4000/api/hello")
+    //     fetch("/api/hello")
     //     .then((res) => {
     //         if (res.ok) return res.json();
     //         return res.json().then(json => Promise.reject(json));
