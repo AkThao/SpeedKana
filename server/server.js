@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { application } = require("express");
+const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
+app.use(cors({
+    origin: "http://localhost:3000"
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,4 +20,4 @@ app.post("/api/world", (req, res) => {
     res.send(`Got a POST request, the message was: ${req.body.post}`);
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
