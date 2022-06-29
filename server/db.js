@@ -14,23 +14,22 @@ const db = new sqlite3.Database(dbPath, err => {
 });
 
 // SQL code to create a table to store test stats
-const createStatsTable = `
+const createStatsTableSql = `
 create table if not exists stats (
     id integer primary key autoincrement,
-    test_num integer,
     num_correct integer,
     num_incorrect integer,
     total_questions integer,
     total_time integer,
     date_time datetime
-);`
+);`;
 
 // Create stats table
-db.run(createStatsTable, err => {
+db.run(createStatsTableSql, err => {
     if (err) {
         console.error("Could not create stats table", err);
     } else {
-        console.log("Created stats table");
+        console.log("Created stats table or table already exists");
     }
 });
 
