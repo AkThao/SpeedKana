@@ -33,14 +33,14 @@ db.run(createStatsTableSql, err => {
     }
 });
 
-// Log all data in the table, just for shits and giggles
-db.all("select * from stats", (err, stats) => {
-    if (err) {
-        console.error("Could not get stats", err);
-    } else {
-        console.log(stats);
-    }
-});
+// Log all data in the table, for shits and giggles
+// db.all("select * from stats", (err, stats) => {
+//     if (err) {
+//         console.error("Could not get stats", err);
+//     } else {
+//         console.log(stats);
+//     }
+// });
 
 // Export the database connection
 module.exports = db;

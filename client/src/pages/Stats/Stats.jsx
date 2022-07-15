@@ -1,6 +1,6 @@
-import HomeButton from "./HomeButton.js/HomeButton";
+import { HomeButton } from "../../components/General";
 
-const StatsView = (props) => {
+const Stats = (props) => {
     return (
         <div>
             <p>Stats</p>
@@ -9,4 +9,4 @@ const StatsView = (props) => {
     );
 };
 
-export default StatsView;
+export default Stats;
