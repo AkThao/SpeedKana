@@ -77,6 +77,29 @@ const Test = props => {
         clearInterval(timerIntervalRef.current);
         setTestChar("");
         setDisabledInput(true);
+
+        const testData = {
+            "num_correct": correctAnswers,
+            "num_incorrect": incorrectAnswers,
+            "total_questions": correctAnswers + incorrectAnswers,
+            "total_time": timeElapsed
+        }
+
+        // Save test results to database
+        fetch("/api/stats/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(testData),
+        }).then((res) => {
+            if (res.ok) return res.json();
+            return res.json().then(json => Promise.reject(json));
+        }).then(({ message }) => {
+            console.log(message);
+        }).catch((err) => {
+            console.error(err);
+        })
     }
 
     useEffect(() => {
