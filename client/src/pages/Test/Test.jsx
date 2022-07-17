@@ -77,7 +77,9 @@ const Test = props => {
         clearInterval(timerIntervalRef.current);
         setTestChar("");
         setDisabledInput(true);
+    }
 
+    const saveResults = () => {
         const testData = {
             "num_correct": correctAnswers,
             "num_incorrect": incorrectAnswers,
@@ -103,33 +105,38 @@ const Test = props => {
     }
 
     useEffect(() => {
-        // Create test timer
-        timerIntervalRef.current = setInterval(() => {
-            let delta = (Date.now() - startTimeRef.current) / 1000;
-            setTimeElapsed(Math.floor(delta));
-        }, 1000);
-
-        // Create test set - will eventually use props to set the test mode and customise the test set
-        // But for now the default set is all Kana
-        testSet.current = {
-            ...kana["hiragana"],
-            // ...kana["hiragana-diacritics"],
-            // ...kana["hiragana-digraphs"],
-            // ...kana["katakana"],
-            // ...kana["katakana-diacritics"],
-            // ...kana["katakana-digraphs"]
+        if (complete) {
+            saveResults();
         }
+        else {
+            // Create test timer
+            timerIntervalRef.current = setInterval(() => {
+                let delta = (Date.now() - startTimeRef.current) / 1000;
+                setTimeElapsed(Math.floor(delta));
+            }, 1000);
 
-        let keys = Object.keys(testSet.current); // keys is an array
-        setTestChar(() => (
-            keys[keys.length * Math.random() << 0] // The << (left-shift) operator fixes the index by coercing the floating-point input into a 32-bit integer
-        ))
-        setRemainingChars(keys.length);
+            // Create test set - will eventually use props to set the test mode and customise the test set
+            // But for now the default set is all Kana
+            testSet.current = {
+                ...kana["hiragana"],
+                // ...kana["hiragana-diacritics"],
+                // ...kana["hiragana-digraphs"],
+                // ...kana["katakana"],
+                // ...kana["katakana-diacritics"],
+                // ...kana["katakana-digraphs"]
+            }
+
+            let keys = Object.keys(testSet.current); // keys is an array
+            setTestChar(() => (
+                keys[keys.length * Math.random() << 0] // The << (left-shift) operator fixes the index by coercing the floating-point input into a 32-bit integer
+            ))
+            setRemainingChars(keys.length);
+        }
 
         return () => {
             clearInterval(timerIntervalRef.current);
         }
-    }, [])
+    }, [complete])
 
     return (
         <div>
