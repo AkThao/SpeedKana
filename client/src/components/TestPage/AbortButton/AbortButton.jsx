@@ -1,13 +1,13 @@
-const EndButton = (props) => {
+const AbortButton = (props) => {
     const handleClick = () => {
         props.onClick("MAIN");
     }
 
     return (
         <div>
-            <button onClick={handleClick}>End Test</button>
+            <button onClick={handleClick}>Abort Test</button>
         </div>
     );
 };
 
-export default EndButton;
+export default AbortButton;

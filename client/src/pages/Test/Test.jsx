@@ -1,27 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import kana from "../../kana.json";
-import { CorrectCharacter, EndButton, Input, PauseButton, ProgressBar, TestCharacter, Timer } from "../../components/TestPage";
+import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer } from "../../components/TestPage";
 
 const Test = props => {
     const [inputAnswer, setInputAnswer] = useState("");
     const [timeElapsed, setTimeElapsed] = useState(0);
     const [complete, setComplete] = useState(false);
-    const [paused, setPaused] = useState(false);
-    const [disabledInput, setDisabledInput] = useState(false);
     const [testChar, setTestChar] = useState("");
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [incorrectAnswers, setIncorrectAnswers] = useState(0);
     const [remainingChars, setRemainingChars] = useState(null);
-    const [pausedTime, setPausedTime] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
     const testSet = useRef({});
-    const timerIntervalRef = useRef(0);
-    const startTimeRef = useRef(Date.now());
+
+    const updateTime = useCallback((newTime) => {
+        setTimeElapsed(newTime);
+    }, []);
 
     const changeAnswer = (newAnswer) => {
         setInputAnswer(newAnswer);
     };
 
     const submitAnswer = () => {
+        if (isPaused) {
+            alert("Test is paused. Resume test to submit answer.");
+            return;
+        }
         checkAnswer();
     }
 
@@ -55,31 +59,13 @@ const Test = props => {
         }
     }
 
-    const pause = () => {
-        setPaused(true);
-        setPausedTime(timeElapsed);
-        clearInterval(timerIntervalRef.current);
-        setDisabledInput(true);
-    }
-
-    const resume = () => {
-        setPaused(false);
-        startTimeRef.current = Date.now();
-        timerIntervalRef.current = setInterval(() => {
-            let delta = ((Date.now() - startTimeRef.current) / 1000) + pausedTime;
-            setTimeElapsed(Math.floor(delta));
-        }, 1000);
-        setDisabledInput(false);
-    }
-
     const completeTest = () => {
         setComplete(true);
-        clearInterval(timerIntervalRef.current);
         setTestChar("");
-        setDisabledInput(true);
+        setIsPaused(true);
     }
 
-    const saveResults = () => {
+    const saveResults = useCallback(() => {
         const testData = {
             "num_correct": correctAnswers,
             "num_incorrect": incorrectAnswers,
@@ -102,19 +88,13 @@ const Test = props => {
         }).catch((err) => {
             console.error(err);
         })
-    }
+    }, [correctAnswers, incorrectAnswers]);
 
     useEffect(() => {
         if (complete) {
             saveResults();
         }
         else {
-            // Create test timer
-            timerIntervalRef.current = setInterval(() => {
-                let delta = (Date.now() - startTimeRef.current) / 1000;
-                setTimeElapsed(Math.floor(delta));
-            }, 1000);
-
             // Create test set - will eventually use props to set the test mode and customise the test set
             // But for now the default set is all Kana
             testSet.current = {
@@ -132,21 +112,16 @@ const Test = props => {
             ))
             setRemainingChars(keys.length);
         }
-
-        return () => {
-            clearInterval(timerIntervalRef.current);
-        }
-    }, [complete])
+    }, [complete, saveResults])
 
     return (
         <div>
             <TestCharacter />
             <CorrectCharacter />
-            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} disabled={disabledInput} />
+            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} />
             <ProgressBar />
-            <Timer time={timeElapsed} />
-            <PauseButton paused={paused} onPause={pause} onResume={resume} disabled={disabledInput} />
-            <EndButton onClick={props.changeAppView} />
+            <Timer time={timeElapsed} isPaused={isPaused} setIsPaused={setIsPaused} updateTime={updateTime} />
+            <AbortButton onClick={props.changeAppView} />
             <div>{testChar}</div>
             <div>{inputAnswer}</div>
             <div>Remaining: {remainingChars}</div>

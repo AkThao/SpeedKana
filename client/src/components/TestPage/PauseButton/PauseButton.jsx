@@ -1,11 +1,7 @@
 const PauseButton = (props) => {
     return (
         <div>
-            {
-                props.paused
-                ? <button onClick={props.onResume}>Resume</button>
-                : <button onClick={props.onPause} disabled={props.disabled}>Pause</button>
-            }
+            <button onClick={props.toggle}>{props.paused ? "Resume" : "Pause"}</button>
         </div>
     );
 };
