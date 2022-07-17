@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import kana from "../../kana.json";
 import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer } from "../../components/TestPage";
 
 const Test = props => {
     const [inputAnswer, setInputAnswer] = useState("");
     const [timeElapsed, setTimeElapsed] = useState(0);
+    const [startOfTest, setStartOfTest] = useState(true);
     const [complete, setComplete] = useState(false);
     const [testChar, setTestChar] = useState("");
     const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -12,6 +13,15 @@ const Test = props => {
     const [remainingChars, setRemainingChars] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
     const testSet = useRef({});
+
+    const testData = useMemo(() => {
+        return {
+            "num_correct": correctAnswers,
+            "num_incorrect": incorrectAnswers,
+            "total_questions": correctAnswers + incorrectAnswers,
+            "total_time": timeElapsed,
+        }
+    }, [correctAnswers, incorrectAnswers, timeElapsed]);
 
     const updateTime = useCallback((newTime) => {
         setTimeElapsed(newTime);
@@ -49,7 +59,7 @@ const Test = props => {
     const pickTestChar = () => {
         // Pick random key from testSet object
         let keys = Object.keys(testSet.current); // keys is an array
-        if (keys.length === 0) {
+        if (keys.length === 0) { // no more characters left, end of test
             completeTest();
         }
         else {
@@ -66,13 +76,6 @@ const Test = props => {
     }
 
     const saveResults = useCallback(() => {
-        const testData = {
-            "num_correct": correctAnswers,
-            "num_incorrect": incorrectAnswers,
-            "total_questions": correctAnswers + incorrectAnswers,
-            "total_time": timeElapsed
-        }
-
         // Save test results to database
         fetch("/api/stats/create", {
             method: "POST",
@@ -88,13 +91,13 @@ const Test = props => {
         }).catch((err) => {
             console.error(err);
         })
-    }, [correctAnswers, incorrectAnswers]);
+    }, [testData]);
 
     useEffect(() => {
         if (complete) {
             saveResults();
         }
-        else {
+        else if (startOfTest) {
             // Create test set - will eventually use props to set the test mode and customise the test set
             // But for now the default set is all Kana
             testSet.current = {
@@ -111,8 +114,9 @@ const Test = props => {
                 keys[keys.length * Math.random() << 0] // The << (left-shift) operator fixes the index by coercing the floating-point input into a 32-bit integer
             ))
             setRemainingChars(keys.length);
+            setStartOfTest(false);
         }
-    }, [complete, saveResults])
+    }, [complete, saveResults, startOfTest])
 
     return (
         <div>
