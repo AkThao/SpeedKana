@@ -122,9 +122,9 @@ const Test = props => {
         <div>
             <TestCharacter />
             <CorrectCharacter />
-            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} />
+            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
             <ProgressBar />
-            <Timer time={timeElapsed} isPaused={isPaused} setIsPaused={setIsPaused} updateTime={updateTime} />
+            <Timer time={timeElapsed} isPaused={isPaused} setIsPaused={setIsPaused} updateTime={updateTime} isTestComplete={complete} />
             <AbortButton onClick={props.changeAppView} />
             <div>{testChar}</div>
             <div>{inputAnswer}</div>

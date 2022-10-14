@@ -11,7 +11,7 @@ const Input = props => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={props.answer} onChange={handleChange} disabled={props.disabled} />
+                <input type="text" value={props.answer} onChange={handleChange} disabled={props.isTestComplete} />
             </form>
         </div>
     );
