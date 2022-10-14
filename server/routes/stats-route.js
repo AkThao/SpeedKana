@@ -15,8 +15,11 @@ const router = express.Router();
 // Add route for GET request to retrieve all test stats
 router.get("/all", statsRoutes.getAllTests);
 
-// Add router for POST request to store new test stats
+// Add route for POST request to store new test stats
 router.post("/create", statsRoutes.createTest);
+
+// Add route for DELETE request to delete test stats
+router.delete("/delete", statsRoutes.deleteTest);
 
 // Export router
 module.exports = router;

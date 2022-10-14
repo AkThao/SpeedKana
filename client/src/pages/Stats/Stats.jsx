@@ -2,11 +2,24 @@ import { HomeButton } from "../../components/General";
 import { useState, useEffect } from "react";
 
 const Stats = (props) => {
-    const [stats, setStats] = useState("");
+    const [testResults, setTestResults] = useState("");
 
-    useEffect(() => {
-        fetchStats();
-    }, []);
+    const deleteResult = (resultId) => {
+        fetch("/api/stats/delete", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "id": resultId }),
+        }).then((res) => {
+            if (res.ok) return res.json();
+            return res.json().then(json => Promise.reject(json));
+        }).then((res) => {
+            setTestResults(res);
+        }).catch((err) => {
+            console.error(err);
+        })
+    }
 
     const fetchStats = () => {
         fetch("/api/stats/all")
@@ -15,18 +28,22 @@ const Stats = (props) => {
             return res.json().then(json => Promise.reject(json));
         })
         .then((res) => {
-            setStats(res);
+            setTestResults(res);
         })
         .catch((err) => {
             console.error(err);
         })
     }
 
+    useEffect(() => {
+        fetchStats();
+    }, []);
+
     return (
         <div>
             <p>Stats</p>
             <HomeButton onClick={props.changeAppView} />
-            {stats === "" ? (
+            {testResults === "" ? (
                 <p>Loading...</p>
             ) : (
                 <table>
@@ -41,15 +58,18 @@ const Stats = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {stats.map((stat, idx) => {
+                        {testResults.map((result, idx) => {
                             return (
                                 <tr key={idx}>
-                                    <td>{stat.id}</td>
-                                    <td>{stat.date_time}</td>
-                                    <td>{stat.num_correct}</td>
-                                    <td>{stat.num_incorrect}</td>
-                                    <td>{stat.total_questions}</td>
-                                    <td>{stat.total_time}</td>
+                                    <td>{result.id}</td>
+                                    <td>{result.date_time}</td>
+                                    <td>{result.num_correct}</td>
+                                    <td>{result.num_incorrect}</td>
+                                    <td>{result.total_questions}</td>
+                                    <td>{result.total_time}</td>
+                                    <td>
+                                        <button onClick={() => deleteResult(result.id)}>Delete</button>
+                                    </td>
                                 </tr>
                             )
                         })}
