@@ -1,13 +1,13 @@
 import { AppSettingsButton, LastTestScore, StartButton, StatsButton, TestSettings, Title } from "../components/HomePage";
 
-const Home = (props) => {
+const Home = () => {
     return (
         <div>
             <Title />
-            <StartButton onClick={props.changeAppView} />
+            <StartButton />
             <TestSettings />
             <LastTestScore />
-            <StatsButton onClick={props.changeAppView} />
+            <StatsButton />
             <AppSettingsButton />
         </div>
     );

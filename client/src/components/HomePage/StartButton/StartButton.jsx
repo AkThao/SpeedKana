@@ -1,11 +1,11 @@
-const StartButton = (props) => {
-    const handleClick = () => {
-        props.onClick("TEST");
-    }
+import { Link } from "react-router-dom";
 
+const StartButton = () => {
     return (
         <div>
-            <button onClick={handleClick}>Start</button>
+            <Link to={`test`}>
+                <button>Start</button>
+            </Link>
         </div>
     )
 }

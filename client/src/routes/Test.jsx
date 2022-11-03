@@ -125,7 +125,7 @@ const Test = props => {
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
             <ProgressBar />
             <Timer time={timeElapsed} isPaused={isPaused} setIsPaused={setIsPaused} updateTime={updateTime} isTestComplete={complete} />
-            <AbortButton onClick={props.changeAppView} />
+            <AbortButton />
             <div>{testChar}</div>
             <div>{inputAnswer}</div>
             <div>Remaining: {remainingChars}</div>

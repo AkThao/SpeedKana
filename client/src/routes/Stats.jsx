@@ -42,7 +42,7 @@ const Stats = (props) => {
     return (
         <div>
             <p>Stats</p>
-            <HomeButton onClick={props.changeAppView} />
+            <HomeButton />
             {testResults === "" ? (
                 <p>Loading...</p>
             ) : (

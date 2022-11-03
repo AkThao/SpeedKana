@@ -1,10 +1,10 @@
-const HomeButton = (props) => {
-    const handleClick = () => {
-        props.onClick("MAIN");
-    }
+import { Link } from "react-router-dom";
 
+const HomeButton = () => {
     return (
-        <button onClick={handleClick}>Home</button>
+        <Link to={`/`}>
+            <button>Home</button>
+        </Link>
     )
 }
 

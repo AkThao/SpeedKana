@@ -1,12 +1,10 @@
-const AbortButton = (props) => {
-    const handleClick = () => {
-        props.onClick("MAIN");
-    }
+import { Link } from "react-router-dom";
 
+const AbortButton = () => {
     return (
-        <div>
-            <button onClick={handleClick}>Abort Test</button>
-        </div>
+        <Link to={`/`}>
+            <button>Abort Test</button>
+        </Link>
     );
 };
 
