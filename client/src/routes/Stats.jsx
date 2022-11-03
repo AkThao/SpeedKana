@@ -1,4 +1,4 @@
-import { HomeButton } from "../../components/General";
+import { HomeButton } from "../components/General";
 import { useState, useEffect } from "react";
 
 const Stats = (props) => {

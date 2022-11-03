@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import kana from "../../kana.json";
-import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer } from "../../components/TestPage";
+import kana from "../kana.json";
+import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer } from "../components/TestPage";
 
 const Test = props => {
     const [inputAnswer, setInputAnswer] = useState("");
