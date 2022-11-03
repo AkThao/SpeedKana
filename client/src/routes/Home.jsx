@@ -1,4 +1,4 @@
-import { AppSettingsButton, LastTestScore, StartButton, StatsButton, TestSettings, Title } from "../../components/HomePage";
+import { AppSettingsButton, LastTestScore, StartButton, StatsButton, TestSettings, Title } from "../components/HomePage";
 
 const Home = (props) => {
     return (
