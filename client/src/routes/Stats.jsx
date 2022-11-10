@@ -35,6 +35,17 @@ const Stats = (props) => {
         })
     }
 
+    const formatTime = (timeInSecs) => {
+        let minutes = (timeInSecs - (timeInSecs % 60)) / 60;
+        let seconds = timeInSecs % 60;
+        let formattedTimeString = `${minutes}m ${seconds}s`;
+        if (minutes === 0) {
+            formattedTimeString = `${seconds}s`;
+        }
+
+        return formattedTimeString;
+    }
+
     useEffect(() => {
         fetchStats();
     }, []);
@@ -66,7 +77,7 @@ const Stats = (props) => {
                                     <td>{result.num_correct}</td>
                                     <td>{result.num_incorrect}</td>
                                     <td>{result.total_questions}</td>
-                                    <td>{result.total_time}</td>
+                                    <td>{formatTime(result.total_time)}</td>
                                     <td>
                                         <button onClick={() => deleteResult(result.id)}>Delete</button>
                                     </td>
