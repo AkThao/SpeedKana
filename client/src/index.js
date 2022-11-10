@@ -4,11 +4,25 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { blue, red } from "@mui/material/colors";
 import "./index.css";
 import Home from "./routes/Home";
 import Test from "./routes/Test";
 import Stats from "./routes/Stats";
-import ErrorPage from "./error-page";
+import ErrorPage from "./routes/ErrorPage";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "rgb(161, 232, 252)",  // or "rgb(91, 163, 249)",
+      background: "#282828",
+    },
+    secondary: {
+      main: red[600],
+    }
+  }
+})
 
 const router = createBrowserRouter([
   {
@@ -28,8 +42,9 @@ const router = createBrowserRouter([
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
