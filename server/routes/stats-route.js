@@ -15,6 +15,9 @@ const router = express.Router();
 // Add route for GET request to retrieve all test stats
 router.get("/all", statsRoutes.getAllTests);
 
+// Add route for GET request to retrieve last test stats
+router.get("/latest", statsRoutes.getLatestTest);
+
 // Add route for POST request to store new test stats
 router.post("/create", statsRoutes.createTest);
 

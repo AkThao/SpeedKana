@@ -20,6 +20,24 @@ exports.getAllTests = (req, res) => {
     });
 }
 
+exports.getLatestTest = (req, res) => {
+    // Retrieve last test stats from database
+    // SQL code to retrieve last test stats
+    const getLastStatsSql = `
+    select * from stats order by id desc limit 1;`;
+
+    // Run the SQL code
+    db.all(getLastStatsSql, (err, stats) => {
+        if (err) {
+            console.error("Could not get latest test stats", err);
+            res.json({ message: `There was an error retrieving latest test stats. Error: ${err}` });
+        } else {
+            console.log(`Got latest test stats`);
+            res.json(stats);
+        }
+    })
+}
+
 exports.createTest = (req, res) => {
     // Store test stats in database
     // SQL code to store test stats
