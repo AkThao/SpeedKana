@@ -5,7 +5,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { blue, red } from "@mui/material/colors";
 import "./index.css";
 import Home from "./routes/Home";
 import Test from "./routes/Test";
@@ -14,12 +13,18 @@ import ErrorPage from "./routes/ErrorPage";
 
 const theme = createTheme({
   palette: {
+    general: {
+      white: "#FFF",
+      black: "#000",
+    },
+    background: {
+      paper: "#181818",
+    },
     primary: {
-      main: "rgb(161, 232, 252)",  // or "rgb(91, 163, 249)",
-      background: "#282828",
+      main: "rgb(161, 232, 252)",
     },
     secondary: {
-      main: red[600],
+      main: "rgb(91, 163, 249)",
     }
   }
 })

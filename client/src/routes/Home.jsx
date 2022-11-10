@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
-import { AppSettingsButton, LastTestScore, StartButton, StatsButton, TestSettings, Title } from "../components/HomePage";
+import { LastTestScore, StartButton, Title } from "../components/HomePage";
+import CustomButton from "../components/General/CustomButton/CustomButton";
 
 const Home = () => {
     const theme = useTheme();
@@ -13,14 +14,19 @@ const Home = () => {
             alignItems: "center",
             width: "100%",
             height: "100vh",
-            backgroundColor: theme.palette.primary.background,
+            backgroundColor: theme.palette.background.paper,
         }}>
             <Title />
+            <Typography sx={{
+                color: theme.palette.general.white,
+                textAlign: "center",
+                fontStyle: "italic",
+                fontWeight: "light",
+                marginBottom: "30px",
+            }}>Hone your knowledge of the Japanese kana system with timed tests</Typography>
             <StartButton />
-            <TestSettings />
             <LastTestScore />
-            <StatsButton />
-            <AppSettingsButton />
+            <CustomButton linkTo="stats" buttonText="Stats" />
         </Box>
     );
 };

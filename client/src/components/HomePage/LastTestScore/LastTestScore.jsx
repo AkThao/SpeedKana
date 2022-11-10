@@ -1,6 +1,23 @@
+import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
+import { useTheme } from "@mui/material";
+
+const CustomTypography = ({ innerText }) => {
+    const theme = useTheme();
+    return (
+        <Typography
+            sx={{
+                color: theme.palette.general.white,
+                textAlign: "center",
+            }}
+        >{innerText}</Typography>
+
+    )
+}
 
 const LastTestScore = () => {
+    const theme = useTheme();
+
     const [numCorrect, setNumCorrect] = useState(null);
     const [numIncorrect, setNumIncorrect] = useState(null);
     const [timeTaken, setTimeTaken] = useState(null);
@@ -12,9 +29,10 @@ const LastTestScore = () => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((res) => {
+        }).then(async (res) => {
             if (res.ok) return res.json();
-            return res.json().then(json => Promise.reject(json));
+            const json = await res.json();
+            return await Promise.reject(json);
         }).then((res) => {
             if (res.length === 0) {
                 setTestExists(false);
@@ -34,13 +52,13 @@ const LastTestScore = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{ margin: "20px 0px" }}>
             {!testExists ? (
-                <p>No previous test results</p>
+                <CustomTypography innerText="No previous test results" />
             ) : (
                 <div>
-                    <p>Last test score: {numCorrect}/{numCorrect + numIncorrect}</p>
-                    <p>Time taken: {timeTaken}</p>
+                    <CustomTypography innerText={`Last test score: ${numCorrect}/${numCorrect + numIncorrect}`} />
+                    <CustomTypography innerText={`Time taken: ${timeTaken}`} />
                 </div>
             )}
         </div>
