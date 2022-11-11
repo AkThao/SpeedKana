@@ -1,7 +1,7 @@
-import { HomeButton } from "../components/General";
+import { HomeButton } from "../components";
 import { useState, useEffect } from "react";
 
-const Stats = (props) => {
+const Stats = () => {
     const [testResults, setTestResults] = useState("");
 
     const deleteResult = (resultId) => {

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import PauseButton from "../PauseButton/PauseButton";
+import { PauseButton } from "./";
 
 const Timer = props => {
     const isPaused = props.isPaused;
 
-    const toggle = () => {
+    const togglePause = () => {
         props.setIsPaused((prev) => (!prev));
     }
 
@@ -26,7 +26,7 @@ const Timer = props => {
     return (
         <div>
             Timer: {(minutes).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}:{(seconds).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}
-            <PauseButton paused={isPaused} toggle={toggle} disabled={props.isTestComplete} />
+            <PauseButton paused={isPaused} toggle={togglePause} disabled={props.isTestComplete} />
         </div>
     );
 };

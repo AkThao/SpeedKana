@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material";
-import { LastTestScore, StartButton, Title } from "../components/HomePage";
-import CustomButton from "../components/General/CustomButton/CustomButton";
+import { CustomButton, LastTestScore, StartButton, Title } from "../components";
 
 const Home = () => {
     const theme = useTheme();
@@ -26,7 +26,9 @@ const Home = () => {
             }}>Hone your knowledge of the Japanese kana system with timed tests</Typography>
             <StartButton />
             <LastTestScore />
-            <CustomButton linkTo="stats" buttonText="Stats" />
+            <Link to={`stats`}>
+                <CustomButton buttonText="Stats" />
+            </Link>
         </Box>
     );
 };

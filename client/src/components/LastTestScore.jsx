@@ -16,8 +16,6 @@ const CustomTypography = ({ innerText }) => {
 }
 
 const LastTestScore = () => {
-    const theme = useTheme();
-
     const [numCorrect, setNumCorrect] = useState(null);
     const [numIncorrect, setNumIncorrect] = useState(null);
     const [timeTaken, setTimeTaken] = useState(null);
