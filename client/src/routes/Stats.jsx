@@ -1,4 +1,4 @@
-import { HomeButton } from "../components";
+import { HomeButton, DeleteButton} from "../components";
 import { useState, useEffect } from "react";
 
 const Stats = () => {
@@ -79,7 +79,7 @@ const Stats = () => {
                                     <td>{result.total_questions}</td>
                                     <td>{formatTime(result.total_time)}</td>
                                     <td>
-                                        <button onClick={() => deleteResult(result.id)}>Delete</button>
+                                        <DeleteButton onClick={() => deleteResult(result.id)} />
                                     </td>
                                 </tr>
                             )

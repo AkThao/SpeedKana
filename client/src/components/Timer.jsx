@@ -26,7 +26,11 @@ const Timer = props => {
     return (
         <div>
             Timer: {(minutes).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}:{(seconds).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}
-            <PauseButton paused={isPaused} toggle={togglePause} disabled={props.isTestComplete} />
+            {
+                props.isTestComplete
+                ? null
+                : <PauseButton paused={isPaused} toggle={togglePause} />
+            }
         </div>
     );
 };

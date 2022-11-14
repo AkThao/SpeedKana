@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import kana from "../kana.json";
-import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer } from "../components";
+import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer, HomeButton } from "../components";
 
 const Test = () => {
     const [inputAnswer, setInputAnswer] = useState("");
@@ -125,7 +125,7 @@ const Test = () => {
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
             <ProgressBar />
             <Timer time={timeElapsed} isPaused={isPaused} setIsPaused={setIsPaused} updateTime={updateTime} isTestComplete={complete} />
-            <AbortButton />
+            {complete ? <HomeButton /> : <AbortButton />}
             <div>{testChar}</div>
             <div>{inputAnswer}</div>
             <div>Remaining: {remainingChars}</div>

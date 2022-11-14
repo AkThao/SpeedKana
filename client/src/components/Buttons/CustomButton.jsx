@@ -6,10 +6,10 @@ const CustomButton = (props) => {
 
     return (
         <Button sx={{
-            color: theme.palette.general.black,
-            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.general.white,
+            backgroundColor: theme.palette.primary.grey,
             ":hover": {
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: theme.palette.secondary.grey,
             },
             fontSize: "16px",
             fontWeight: "bold",

@@ -10,6 +10,7 @@ import Home from "./routes/Home";
 import Test from "./routes/Test";
 import Stats from "./routes/Stats";
 import ErrorPage from "./routes/ErrorPage";
+import { green, grey, red } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
@@ -22,9 +23,14 @@ const theme = createTheme({
     },
     primary: {
       main: "rgb(161, 232, 252)",
+      red: red[500],
+      grey: grey[700],
+      green: green[500],
     },
     secondary: {
       main: "rgb(91, 163, 249)",
+      red: red[800],
+      grey: grey[500],
     }
   }
 })
