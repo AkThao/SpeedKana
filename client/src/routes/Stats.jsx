@@ -56,6 +56,8 @@ const Stats = () => {
             <HomeButton />
             {testResults === "" ? (
                 <p>Loading...</p>
+            ) : (testResults.length === 0) ? (
+                <p>No previous test results</p>
             ) : (
                 <table>
                     <thead>
