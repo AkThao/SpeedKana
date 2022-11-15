@@ -4,10 +4,6 @@ import { PauseButton } from "./";
 const Timer = props => {
     const isPaused = props.isPaused;
 
-    const togglePause = () => {
-        props.setIsPaused((prev) => (!prev));
-    }
-
     const updateTime = props.updateTime;
 
     let time = props.time;
@@ -29,7 +25,7 @@ const Timer = props => {
             {
                 props.isTestComplete
                 ? null
-                : <PauseButton paused={isPaused} toggle={togglePause} />
+                : <PauseButton paused={isPaused} toggle={props.togglePause} />
             }
         </div>
     );

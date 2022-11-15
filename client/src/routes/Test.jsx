@@ -27,6 +27,10 @@ const Test = () => {
         setTimeElapsed(newTime);
     }, []);
 
+    const togglePause = () => {
+        setIsPaused((prev) => (!prev));
+    }
+
     const changeAnswer = (newAnswer) => {
         setInputAnswer(newAnswer);
     };
@@ -124,7 +128,7 @@ const Test = () => {
             <CorrectCharacter />
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
             <ProgressBar />
-            <Timer time={timeElapsed} isPaused={isPaused} setIsPaused={setIsPaused} updateTime={updateTime} isTestComplete={complete} />
+            <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={complete} />
             {complete ? <HomeButton /> : <AbortButton />}
             <div>{testChar}</div>
             <div>{inputAnswer}</div>
