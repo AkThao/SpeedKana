@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useTheme } from "@mui/material";
+import formatTime from "../utils/formatTime";
 
 const CustomTypography = ({ innerText }) => {
     const theme = useTheme();
@@ -56,7 +57,7 @@ const LastTestScore = () => {
             ) : (
                 <div>
                     <CustomTypography innerText={`Last test score: ${numCorrect}/${numCorrect + numIncorrect}`} />
-                    <CustomTypography innerText={`Time taken: ${timeTaken}`} />
+                    <CustomTypography innerText={`Time taken: ${formatTime(timeTaken)}`} />
                 </div>
             )}
         </div>

@@ -1,5 +1,6 @@
 import { HomeButton, DeleteButton} from "../components";
 import { useState, useEffect } from "react";
+import formatTime from "../utils/formatTime";
 
 const Stats = () => {
     const [testResults, setTestResults] = useState("");
@@ -33,17 +34,6 @@ const Stats = () => {
         .catch((err) => {
             console.error(err);
         })
-    }
-
-    const formatTime = (timeInSecs) => {
-        let minutes = (timeInSecs - (timeInSecs % 60)) / 60;
-        let seconds = timeInSecs % 60;
-        let formattedTimeString = `${minutes}m ${seconds}s`;
-        if (minutes === 0) {
-            formattedTimeString = `${seconds}s`;
-        }
-
-        return formattedTimeString;
     }
 
     useEffect(() => {
