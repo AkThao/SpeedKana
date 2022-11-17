@@ -12,6 +12,8 @@ const Test = () => {
     const [incorrectAnswers, setIncorrectAnswers] = useState(0);
     const [remainingChars, setRemainingChars] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
+    const [correctAns, setCorrectAns] = useState("");
+    const [correctAnsVisible, setCorrectAnsVisible] = useState(false);
     const testSet = useRef({});
 
     const testData = useMemo(() => {
@@ -48,9 +50,19 @@ const Test = () => {
             setCorrectAnswers((prev) => (prev + 1));
         }
         else {
+            setCorrectAns(testSet.current[testChar]);
+            showCorrectAnswer();
             setIncorrectAnswers((prev) => (prev + 1));
+
         }
         nextQuestion();
+    }
+
+    const showCorrectAnswer = () => {
+        setCorrectAnsVisible(true);
+        setTimeout(() => {
+            setCorrectAnsVisible(false);
+        }, 1000);
     }
 
     const nextQuestion = () => {
@@ -125,7 +137,7 @@ const Test = () => {
     return (
         <div>
             <TestCharacter />
-            <CorrectCharacter />
+            <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAns={correctAns} />
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
             <ProgressBar />
             <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={complete} />

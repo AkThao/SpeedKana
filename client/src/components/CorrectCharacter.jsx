@@ -1,7 +1,7 @@
-const CorrectCharacter = () => {
+const CorrectCharacter = (props) => {
     return (
         <div>
-            Correct Character
+            <p style={{ visibility: `${props.correctAnsVisible ? "visible" : "hidden"}`}}>{props.correctAns}</p>
         </div>
     );
 };
