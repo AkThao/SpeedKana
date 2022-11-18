@@ -150,8 +150,15 @@ const Test = () => {
             height: "100vh",
             backgroundColor: theme.palette.background.paper,
         }}>
-            <TestCharacter testChar={testChar} />
-            <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAns={correctAns} />
+            <Box sx={{
+                width: "80%",
+                display: "flex",
+                justifyContent: "center",
+                gap: "4em",
+            }}>
+                <TestCharacter testChar={testChar} />
+                <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAns={correctAns} />
+            </Box>
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
             {/* <ProgressBar /> */}
             <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={complete} />

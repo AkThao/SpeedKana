@@ -7,8 +7,9 @@ const CustomParagraph = (props) => {
 
     return (
         <Typography sx={{
-            color: theme.palette.general.white,
+            color: props.color || theme.palette.general.white,
             textAlign: "center",
+            fontSize: props.fontSize,
         }}>
             {props.childText}
         </Typography>
