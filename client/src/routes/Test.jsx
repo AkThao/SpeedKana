@@ -9,26 +9,26 @@ const Test = () => {
     const theme = useTheme();
     const [inputAnswer, setInputAnswer] = useState("");
     const [timeElapsed, setTimeElapsed] = useState(0);
-    const [startOfTest, setStartOfTest] = useState(true);
-    const [complete, setComplete] = useState(false);
+    const [isStartOfTest, setIsStartOfTest] = useState(true);
+    const [isComplete, setIsComplete] = useState(false);
     const [testChar, setTestChar] = useState("");
-    const [correctAnswers, setCorrectAnswers] = useState(0);
-    const [incorrectAnswers, setIncorrectAnswers] = useState(0);
-    const [remainingChars, setRemainingChars] = useState(null);
+    const [numCorrectAnswers, setNumCorrectAnswers] = useState(0);
+    const [numIncorrectAnswers, setNumIncorrectAnswers] = useState(0);
+    const [numRemainingChars, setNumRemainingChars] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const [correctAns, setCorrectAns] = useState("");
+    const [correctAnswer, setCorrectAnswer] = useState("");
     const [correctAnsVisible, setCorrectAnsVisible] = useState(false);
     const [timeoutId, setTimeoutId] = useState(0);
     const testSet = useRef({});
 
     const testData = useMemo(() => {
         return {
-            "num_correct": correctAnswers,
-            "num_incorrect": incorrectAnswers,
-            "total_questions": correctAnswers + incorrectAnswers,
+            "num_correct": numCorrectAnswers,
+            "num_incorrect": numIncorrectAnswers,
+            "total_questions": numCorrectAnswers + numIncorrectAnswers,
             "total_time": timeElapsed,
         }
-    }, [correctAnswers, incorrectAnswers, timeElapsed]);
+    }, [numCorrectAnswers, numIncorrectAnswers, timeElapsed]);
 
     const updateTime = useCallback((newTime) => {
         setTimeElapsed(newTime);
@@ -52,12 +52,12 @@ const Test = () => {
 
     const checkAnswer = () => {
         if (inputAnswer === testSet.current[testChar]) {
-            setCorrectAnswers((prev) => (prev + 1));
+            setNumCorrectAnswers((prev) => (prev + 1));
         }
         else {
-            setCorrectAns(testSet.current[testChar]);
+            setCorrectAnswer(testSet.current[testChar]);
             showCorrectAnswer();
-            setIncorrectAnswers((prev) => (prev + 1));
+            setNumIncorrectAnswers((prev) => (prev + 1));
 
         }
         nextQuestion();
@@ -74,7 +74,7 @@ const Test = () => {
     const nextQuestion = () => {
         setInputAnswer("");
         delete testSet.current[testChar];
-        setRemainingChars(Object.keys(testSet.current).length);
+        setNumRemainingChars(Object.keys(testSet.current).length);
         pickTestChar();
     }
 
@@ -92,7 +92,7 @@ const Test = () => {
     }
 
     const completeTest = () => {
-        setComplete(true);
+        setIsComplete(true);
         setTestChar("");
         setIsPaused(true);
     }
@@ -116,10 +116,10 @@ const Test = () => {
     }, [testData]);
 
     useEffect(() => {
-        if (complete) {
+        if (isComplete) {
             saveResults();
         }
-        else if (startOfTest) {
+        else if (isStartOfTest) {
             // Create test set - will eventually use props to set the test mode and customise the test set
             // But for now the default set is all Kana
             testSet.current = {
@@ -135,10 +135,10 @@ const Test = () => {
             setTestChar(() => (
                 keys[keys.length * Math.random() << 0] // The << (left-shift) operator fixes the index by coercing the floating-point input into a 32-bit integer
             ))
-            setRemainingChars(keys.length);
-            setStartOfTest(false);
+            setNumRemainingChars(keys.length);
+            setIsStartOfTest(false);
         }
-    }, [complete, saveResults, startOfTest])
+    }, [isComplete, saveResults, isStartOfTest])
 
     return (
         <Box sx={{
@@ -157,17 +157,17 @@ const Test = () => {
                 gap: "4em",
             }}>
                 <TestCharacter testChar={testChar} />
-                <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAns={correctAns} />
+                <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAnswer={correctAnswer} />
             </Box>
-            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
+            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={isComplete} />
             {/* <ProgressBar /> */}
-            <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={complete} />
-            {complete ? <HomeButton /> : <AbortButton />}
-            <CustomParagraph childText={`Remaining: ${remainingChars}`} />
-            <CustomParagraph childText={`Correct: ${correctAnswers}`} />
-            <CustomParagraph childText={`Incorrect: ${incorrectAnswers}`} />
+            <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={isComplete} />
+            {isComplete ? <HomeButton /> : <AbortButton />}
+            <CustomParagraph childText={`Remaining: ${numRemainingChars}`} />
+            <CustomParagraph childText={`Correct: ${numCorrectAnswers}`} />
+            <CustomParagraph childText={`Incorrect: ${numIncorrectAnswers}`} />
             {
-                complete
+                isComplete
                 ? <CustomParagraph childText={`Test complete!`} />
                 : null
             }

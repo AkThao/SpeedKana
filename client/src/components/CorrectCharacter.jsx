@@ -17,7 +17,7 @@ const CorrectCharacter = (props) => {
             borderRadius: "16px",
         }}>
             <div style={{ visibility: `${ props.correctAnsVisible ? "visible" : "hidden" }`}}>
-                <CustomParagraph childText={props.correctAns} fontSize="10em" color={theme.palette.primary.red} />
+                <CustomParagraph childText={props.correctAnswer} fontSize="10em" color={theme.palette.primary.red} />
             </div>
         </Box>
     );
