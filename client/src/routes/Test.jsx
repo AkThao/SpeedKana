@@ -14,6 +14,7 @@ const Test = () => {
     const [isPaused, setIsPaused] = useState(false);
     const [correctAns, setCorrectAns] = useState("");
     const [correctAnsVisible, setCorrectAnsVisible] = useState(false);
+    const [timeoutId, setTimeoutId] = useState(0);
     const testSet = useRef({});
 
     const testData = useMemo(() => {
@@ -60,9 +61,10 @@ const Test = () => {
 
     const showCorrectAnswer = () => {
         setCorrectAnsVisible(true);
-        setTimeout(() => {
+        window.clearTimeout(timeoutId);
+        setTimeoutId(setTimeout(() => {
             setCorrectAnsVisible(false);
-        }, 1000);
+        }, 1000));
     }
 
     const nextQuestion = () => {
