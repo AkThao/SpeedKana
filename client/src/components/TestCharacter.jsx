@@ -1,8 +1,8 @@
-const TestCharacter = () => {
+import CustomParagraph from "./Text/CustomParagraph";
+
+const TestCharacter = (props) => {
     return (
-        <div>
-            Test Character
-        </div>
+        <CustomParagraph childText={props.testChar} />
     );
 };
 

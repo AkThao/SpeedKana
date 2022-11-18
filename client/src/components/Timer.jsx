@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { PauseButton } from "./";
+import { CustomParagraph } from "../components";
 
 const Timer = props => {
     const isPaused = props.isPaused;
@@ -21,7 +22,7 @@ const Timer = props => {
 
     return (
         <div>
-            Timer: {(minutes).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}:{(seconds).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}
+            <CustomParagraph childText={`Timer: ${(minutes).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}:${(seconds).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}`} />
             {
                 props.isTestComplete
                 ? null

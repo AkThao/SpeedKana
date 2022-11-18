@@ -1,7 +1,11 @@
+import { CustomParagraph } from "../components";
+
 const CorrectCharacter = (props) => {
     return (
         <div>
-            <p style={{ visibility: `${props.correctAnsVisible ? "visible" : "hidden"}`}}>{props.correctAns}</p>
+            <div style={{ visibility: `${ props.correctAnsVisible ? "visible" : "hidden" }`}}>
+                <CustomParagraph childText={props.correctAns} />
+            </div>
         </div>
     );
 };

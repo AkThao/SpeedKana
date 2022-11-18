@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import kana from "../kana.json";
 import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer, HomeButton } from "../components";
+import { useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import { CustomParagraph } from "../components";
 
 const Test = () => {
+    const theme = useTheme();
     const [inputAnswer, setInputAnswer] = useState("");
     const [timeElapsed, setTimeElapsed] = useState(0);
     const [startOfTest, setStartOfTest] = useState(true);
@@ -137,24 +141,30 @@ const Test = () => {
     }, [complete, saveResults, startOfTest])
 
     return (
-        <div>
-            <TestCharacter />
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100vh",
+            backgroundColor: theme.palette.background.paper,
+        }}>
+            <TestCharacter testChar={testChar} />
             <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAns={correctAns} />
             <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={complete} />
-            <ProgressBar />
+            {/* <ProgressBar /> */}
             <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={complete} />
             {complete ? <HomeButton /> : <AbortButton />}
-            <div>{testChar}</div>
-            <div>{inputAnswer}</div>
-            <div>Remaining: {remainingChars}</div>
-            <div>Correct: {correctAnswers}</div>
-            <div>Incorrect: {incorrectAnswers}</div>
+            <CustomParagraph childText={`Remaining: ${remainingChars}`} />
+            <CustomParagraph childText={`Correct: ${correctAnswers}`} />
+            <CustomParagraph childText={`Incorrect: ${incorrectAnswers}`} />
             {
                 complete
-                ? <div>Test complete!</div>
+                ? <CustomParagraph childText={`Test complete!`} />
                 : null
             }
-        </div>
+        </Box>
     );
 };
 
