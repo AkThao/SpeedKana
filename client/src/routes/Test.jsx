@@ -52,14 +52,14 @@ const Test = () => {
 
     const checkAnswer = () => {
         if (inputAnswer === testSet.current[testChar]) {
+            setCorrectAnswer("✓");
             setNumCorrectAnswers((prev) => (prev + 1));
         }
         else {
             setCorrectAnswer(testSet.current[testChar]);
-            showCorrectAnswer();
             setNumIncorrectAnswers((prev) => (prev + 1));
-
         }
+        showCorrectAnswer();
         nextQuestion();
     }
 
