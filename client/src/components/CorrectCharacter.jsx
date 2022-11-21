@@ -9,12 +9,14 @@ const CorrectCharacter = (props) => {
         <Box sx={{
             width: "50%",
             maxWidth: "400px",
+            minWidth: "300px",
             aspectRatio: "4/3",
             backgroundColor: theme.palette.primary.grey,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             borderRadius: "16px",
+            border: "6px solid black",
         }}>
             <div style={{ visibility: `${ props.correctAnsVisible ? "visible" : "hidden" }`}}>
                 <CustomParagraph childText={props.correctAnswer} fontSize="10em" color={props.correctAnswer == "✓" ? theme.palette.primary.green : theme.palette.primary.red} />
