@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import kana from "../kana.json";
-import { CorrectCharacter, AbortButton, Input, ProgressBar, TestCharacter, Timer, HomeButton } from "../components";
+import { CorrectCharacter, AbortButton, CustomInput, ProgressBar, TestCharacter, Timer, HomeButton } from "../components";
 import { useTheme } from "@mui/material";
 import { Box } from "@mui/material";
 import { CustomParagraph } from "../components";
@@ -155,22 +155,23 @@ const Test = () => {
                 display: "flex",
                 justifyContent: "center",
                 gap: "4em",
+                marginBottom: "40px",
             }}>
                 <TestCharacter testChar={testChar} />
                 <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAnswer={correctAnswer} />
             </Box>
-            <Input answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={isComplete} />
+            <CustomInput answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={isComplete} />
             {/* <ProgressBar /> */}
+            { isComplete ? <CustomParagraph fontSize="30px" color={theme.palette.primary.green} childText={`Test complete!`} /> : null }
             <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={isComplete} />
-            {isComplete ? <HomeButton /> : <AbortButton />}
-            <CustomParagraph childText={`Remaining: ${numRemainingChars}`} />
-            <CustomParagraph childText={`Correct: ${numCorrectAnswers}`} />
-            <CustomParagraph childText={`Incorrect: ${numIncorrectAnswers}`} />
-            {
-                isComplete
-                ? <CustomParagraph childText={`Test complete!`} />
-                : null
-            }
+            <Box sx={{
+                marginBottom: "40px",
+            }}>
+                <CustomParagraph fontSize="20px" childText={`Remaining: ${numRemainingChars}`} />
+                <CustomParagraph fontSize="20px" childText={`Correct: ${numCorrectAnswers}`} />
+                <CustomParagraph fontSize="20px" childText={`Incorrect: ${numIncorrectAnswers}`} />
+            </Box>
+            { isComplete ? <HomeButton /> : <AbortButton /> }
         </Box>
     );
 };

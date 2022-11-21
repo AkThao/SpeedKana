@@ -1,7 +1,7 @@
-import { TextField } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 import { useTheme } from "@mui/material";
 
-const Input = props => {
+const CustomInput = props => {
     const theme = useTheme();
 
     const handleChange = (e) => {
@@ -14,7 +14,9 @@ const Input = props => {
     }
 
     return (
-        <div>
+        <Box sx={{
+            marginBottom: "40px",
+        }}>
             <form onSubmit={handleSubmit}>
                 <TextField sx={{
                     backgroundColor: theme.palette.primary.grey,
@@ -27,8 +29,8 @@ const Input = props => {
                     }
                 }} type="text" placeholder="Type answer here..." variant="filled" color="primary" value={props.answer} onChange={handleChange} disabled={props.isTestComplete} />
             </form>
-        </div>
+        </Box>
     );
 };
 
-export default Input;
+export default CustomInput;

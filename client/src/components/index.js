@@ -3,7 +3,7 @@ import CorrectCharacter from "./CorrectCharacter";
 import CustomButton from "./Buttons/CustomButton";
 import HomeButton from "./Buttons/HomeButton";
 import DeleteButton from "./Buttons/DeleteButton";
-import Input from "./Input";
+import CustomInput from "./CustomInput";
 import LastTestScore from "./LastTestScore";
 import PauseButton from "./Buttons/PauseButton";
 import ProgressBar from "./ProgressBar";
@@ -13,4 +13,4 @@ import Timer from "./Timer";
 import Title from "./Title";
 import CustomParagraph from "./Text/CustomParagraph";
 
-export { AbortButton, CorrectCharacter, CustomButton, HomeButton, DeleteButton, Input, LastTestScore, PauseButton, ProgressBar, StartButton, TestCharacter, Timer, Title, CustomParagraph };
+export { AbortButton, CorrectCharacter, CustomButton, HomeButton, DeleteButton, CustomInput, LastTestScore, PauseButton, ProgressBar, StartButton, TestCharacter, Timer, Title, CustomParagraph };

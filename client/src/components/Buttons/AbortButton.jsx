@@ -14,9 +14,9 @@ const AbortButton = () => {
                     ":hover": {
                         backgroundColor: theme.palette.secondary.red,
                     },
-                    fontSize: "12px",
+                    fontSize: "14px",
                     fontWeight: "bold",
-                    padding: "4px 10px",
+                    padding: "6px 14px",
                     textTransform: "none",
                 }}>Abort Test</Button>
         </Link>

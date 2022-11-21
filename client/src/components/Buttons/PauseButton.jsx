@@ -13,9 +13,9 @@ const PauseButton = (props) => {
                 ":hover": {
                     backgroundColor: `${props.paused ? theme.palette.primary.green : theme.palette.primary.red}`,
                 },
-                fontSize: "14px",
+                fontSize: "16px",
                 fontWeight: "bold",
-                padding: "4px 12px",
+                padding: "8px 16px",
                 textTransform: "none",
                 display: "block",
             }}>{props.paused ? "Resume" : "Pause"}</Button>

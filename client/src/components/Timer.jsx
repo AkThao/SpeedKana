@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Box } from "@mui/material";
 import { PauseButton } from "./";
 import { CustomParagraph } from "../components";
 
@@ -21,14 +22,20 @@ const Timer = props => {
     }, [isPaused, time, updateTime]);
 
     return (
-        <div>
-            <CustomParagraph childText={`Timer: ${(minutes).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}:${(seconds).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}`} />
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.5em",
+            margin: "40px 0px 40px",
+        }}>
+            <CustomParagraph fontSize="24px" childText={`Timer: ${(minutes).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}:${(seconds).toLocaleString("en-GB", {minimumIntegerDigits: 2, useGrouping: false})}`} />
             {
                 props.isTestComplete
                 ? null
                 : <PauseButton paused={isPaused} toggle={props.togglePause} />
             }
-        </div>
+        </Box>
     );
 };
 
