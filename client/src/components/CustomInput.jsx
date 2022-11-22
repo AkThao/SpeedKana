@@ -27,7 +27,7 @@ const CustomInput = props => {
                         fontSize: "20px",
                         padding: "10px 16px",
                     }
-                }} type="text" placeholder="Type answer here..." variant="filled" color="primary" value={props.answer} onChange={handleChange} disabled={props.isTestComplete} />
+                }} type="text" autoFocus placeholder="Type answer here..." variant="filled" color="primary" value={props.answer} onChange={handleChange} disabled={props.isTestComplete} />
             </form>
         </Box>
     );
