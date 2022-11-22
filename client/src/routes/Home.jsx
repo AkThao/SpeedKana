@@ -13,8 +13,10 @@ const Home = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            height: "100vh",
+            minHeight: "100vh",
             backgroundColor: theme.palette.background.paper,
+            padding: "20px 0px",
+            boxSizing: "border-box",
         }}>
             <Title />
             <Typography sx={{

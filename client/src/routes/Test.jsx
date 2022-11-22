@@ -146,9 +146,11 @@ const Test = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            minHeight: "100vh",
             width: "100%",
-            height: "100vh",
             backgroundColor: theme.palette.background.paper,
+            padding: "20px 0px",
+            boxSizing: "border-box",
         }}>
             <Box sx={{
                 width: "80%",

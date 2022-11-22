@@ -4,6 +4,7 @@ const ProgressBar = (props) => {
     return (
         <LinearProgress sx={{
             height: "20px",
+            minHeight: "20px",
             width: "80%",
             maxWidth: "900px",
             marginBottom: "40px",
