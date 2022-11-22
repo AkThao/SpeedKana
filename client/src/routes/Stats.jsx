@@ -42,7 +42,6 @@ const Stats = () => {
 
     return (
         <div>
-            <p>Stats</p>
             <HomeButton />
             {testResults === "" ? (
                 <p>Loading...</p>
