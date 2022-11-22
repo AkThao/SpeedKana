@@ -161,16 +161,16 @@ const Test = () => {
                 <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAnswer={correctAnswer} />
             </Box>
             <CustomInput answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={isComplete} />
-            {/* <ProgressBar /> */}
             { isComplete ? <CustomParagraph fontSize="30px" color={theme.palette.primary.green} childText={`Test complete!`} /> : null }
             <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={isComplete} />
             <Box sx={{
-                marginBottom: "40px",
+                marginBottom: "20px",
             }}>
-                <CustomParagraph fontSize="20px" childText={`Remaining: ${numRemainingChars}`} />
                 <CustomParagraph fontSize="20px" childText={`Correct: ${numCorrectAnswers}`} />
                 <CustomParagraph fontSize="20px" childText={`Incorrect: ${numIncorrectAnswers}`} />
+                <CustomParagraph fontSize="20px" childText={`Remaining: ${numRemainingChars}`} />
             </Box>
+            <ProgressBar progress={(numCorrectAnswers + numIncorrectAnswers) / (numRemainingChars + numCorrectAnswers + numIncorrectAnswers) * 100} />
             { isComplete ? <HomeButton /> : <AbortButton /> }
         </Box>
     );
