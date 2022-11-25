@@ -42,14 +42,6 @@ const Test = () => {
         setInputAnswer(newAnswer);
     };
 
-    const submitAnswer = () => {
-        if (isPaused) {
-            alert("Test is paused. Resume test to submit answer.");
-            return;
-        }
-        checkAnswer();
-    }
-
     const checkAnswer = () => {
         if (inputAnswer === testSet.current[testChar]) {
             setCorrectAnswer("✓");
@@ -162,7 +154,7 @@ const Test = () => {
                 <TestCharacter testChar={testChar} />
                 <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAnswer={correctAnswer} />
             </Box>
-            <CustomInput answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={submitAnswer} isTestComplete={isComplete} />
+            <CustomInput answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={checkAnswer} isTestComplete={isComplete} isTestPaused={isPaused} />
             { isComplete ? <CustomParagraph fontSize="30px" color={theme.palette.primary.green} childText={`Test complete!`} /> : null }
             <Timer time={timeElapsed} isPaused={isPaused} togglePause={togglePause} updateTime={updateTime} isTestComplete={isComplete} />
             <Box sx={{
