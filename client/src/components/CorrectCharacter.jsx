@@ -19,7 +19,7 @@ const CorrectCharacter = (props) => {
             border: "6px solid black",
         }}>
             <div style={{ visibility: `${ props.correctAnsVisible ? "visible" : "hidden" }`}}>
-                <CustomParagraph childText={props.correctAnswer} fontSize="10em" color={props.correctAnswer == "✓" ? theme.palette.primary.green : theme.palette.primary.red} />
+                <CustomParagraph childText={props.correctAnswer} fontSize="10em" color={props.correctAnswer === "✓" ? theme.palette.primary.green : theme.palette.primary.red} />
             </div>
         </Box>
     );
