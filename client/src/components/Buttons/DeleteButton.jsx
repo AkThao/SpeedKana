@@ -17,7 +17,7 @@ const DeleteButton = (props) => {
                 fontWeight: "bold",
                 padding: "4px 10px",
                 textTransform: "none",
-            }}>Delete</Button>
+            }}>{props.deleteAll ? "Delete All" : "Delete"}</Button>
     )
 }
 

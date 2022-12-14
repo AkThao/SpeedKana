@@ -1,7 +1,7 @@
 import { HomeButton, DeleteButton, CustomTableCell, CustomParagraph } from "../components";
 import { useState, useEffect } from "react";
 import formatTime from "../utils/formatTime";
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box, Paper, Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useTheme } from "@mui/material";
 
 const Stats = () => {
@@ -16,6 +16,22 @@ const Stats = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ "id": resultId }),
+        }).then((res) => {
+            if (res.ok) return res.json();
+            return res.json().then(json => Promise.reject(json));
+        }).then((res) => {
+            setTestResults(res);
+        }).catch((err) => {
+            console.error(err);
+        })
+    }
+
+    const deleteAllResults = () => {
+        fetch("/api/stats/delete-all", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
         }).then((res) => {
             if (res.ok) return res.json();
             return res.json().then(json => Promise.reject(json));
@@ -76,7 +92,9 @@ const Stats = () => {
                                 <CustomTableCell isTableHeading alignRight childText="Incorrect answers" />
                                 <CustomTableCell isTableHeading alignRight childText="Total questions" />
                                 <CustomTableCell isTableHeading alignRight childText="Time taken" />
-                                <TableCell></TableCell>
+                                <CustomTableCell alignRight childText={
+                                    <DeleteButton deleteAll onClick={() => deleteAllResults()} />
+                                }/>
                             </TableRow>
                         </TableHead>
                         <TableBody>
