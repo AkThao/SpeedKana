@@ -69,12 +69,6 @@ const Stats = () => {
                         <TableHead>
                             <TableRow sx={{
                                 backgroundColor: theme.palette.general.black,
-                                "th:first-child": {
-                                    borderTopLeftRadius: "10px",
-                                },
-                                "th:last-child": {
-                                    borderTopRightRadius: "10px",
-                                }
                             }}>
                                 <CustomTableCell isTableHeading childText="Test no." />
                                 <CustomTableCell isTableHeading alignRight childText="Date saved" />
