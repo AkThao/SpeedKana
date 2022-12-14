@@ -74,7 +74,10 @@ const Stats = () => {
             {testResults === "" ? (
                 <CustomParagraph childText="Loading..." />
             ) : (testResults.length === 0) ? (
-                <CustomParagraph childText="No previous test results" />
+                <>
+                    <CustomParagraph childText="No previous test results" />
+                    <CustomParagraph childText="Come back once you've taken a test in order to see a table of your results" />
+                </>
             ) : (
                 <TableContainer component={Paper} sx={{
                     alignSelf: "center",
