@@ -24,5 +24,8 @@ router.post("/create", statsRoutes.createTest);
 // Add route for DELETE request to delete test stats
 router.delete("/delete", statsRoutes.deleteTest);
 
+// Add route for DELETE request to delete all test stats
+router.delete("/delete-all", statsRoutes.deleteAllTests);
+
 // Export router
 module.exports = router;

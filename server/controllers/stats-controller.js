@@ -67,7 +67,7 @@ exports.deleteTest = (req, res) => {
     // Run the SQL code
     db.run(deleteStatsSql, err => {
         if (err) {
-            console.log("Could not delete stats", err);
+            console.error("Could not delete stats", err);
             res.json({ message: `There was an error deleting test stats. Error: ${err}` });
         } else {
             console.log("Deleted stats");
@@ -75,7 +75,7 @@ exports.deleteTest = (req, res) => {
             db.all(`select * from stats;`, (err, stats) => {
                 if (err) {
                     console.error("Could not get stats", err);
-                    res.json({ message: `There was an error retrieving test stats. Error: ${err}`});
+                    res.json({ message: `There was an error retrieving test stats. Error: ${err}` });
                 } else {
                     // Restart ID counter if all tests are deleted
                     if (stats.length == 0) {
@@ -88,6 +88,41 @@ exports.deleteTest = (req, res) => {
                         })
                     }
                     console.log(`Got ${stats.length} stat${stats.length != 1 ? "s" : ""}`);
+                    res.json(stats);
+                }
+            });
+        }
+    });
+}
+
+exports.deleteAllTests = (req, res) => {
+    // Delete all test stats from database
+    // SQL code to delete all test stats
+    const deleteAllStatsSql = `
+    delete from stats;`;
+
+    // Run the SQL code
+    db.run(deleteAllStatsSql, err => {
+        if (err) {
+            console.error("Could not delete stats", err);
+            res.json({ message: `There was an error deleting test stats. Error: ${err} `})
+        } else {
+            console.log("Deleted all stats");
+            // Return empty table once all records have been deleted
+            db.all(`select * from stats;`, (err, stats) => {
+                if (err) {
+                    console.error("Could not get stats", err);
+                    res.json({ message: `There was an error retrieving test stats. Error: ${err}` });
+                } else {
+                    // Restart ID counter since all tests have been deleted
+                    db.run(`update sqlite_sequence set seq=0 where name="stats"`, err => {
+                        if (err) {
+                            console.log("Could not reset ID counter", err);
+                        } else {
+                            console.log("Reset ID counter");
+                        }
+                    })
+                    console.log(`Got empty stats table`);
                     res.json(stats);
                 }
             });
