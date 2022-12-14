@@ -12,5 +12,6 @@ import TestCharacter from "./TestCharacter";
 import Timer from "./Timer";
 import Title from "./Title";
 import CustomParagraph from "./Text/CustomParagraph";
+import CustomTableCell from "./Text/CustomTableCell";
 
-export { AbortButton, CorrectCharacter, CustomButton, HomeButton, DeleteButton, CustomInput, LastTestScore, PauseButton, ProgressBar, StartButton, TestCharacter, Timer, Title, CustomParagraph };
+export { AbortButton, CorrectCharacter, CustomButton, HomeButton, DeleteButton, CustomInput, LastTestScore, PauseButton, ProgressBar, StartButton, TestCharacter, Timer, Title, CustomParagraph, CustomTableCell };

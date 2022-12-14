@@ -1,8 +1,12 @@
-import { HomeButton, DeleteButton} from "../components";
+import { HomeButton, DeleteButton, CustomTableCell, CustomParagraph } from "../components";
 import { useState, useEffect } from "react";
 import formatTime from "../utils/formatTime";
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material";
 
 const Stats = () => {
+    const theme = useTheme();
+
     const [testResults, setTestResults] = useState("");
 
     const deleteResult = (resultId) => {
@@ -41,44 +45,69 @@ const Stats = () => {
     }, []);
 
     return (
-        <div>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            minHeight: "100vh",
+            backgroundColor: theme.palette.background.paper,
+            padding: "40px",
+            boxSizing: "border-box",
+        }}>
             <HomeButton />
             {testResults === "" ? (
-                <p>Loading...</p>
+                <CustomParagraph childText="Loading..." />
             ) : (testResults.length === 0) ? (
-                <p>No previous test results</p>
+                <CustomParagraph childText="No previous test results" />
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Test no.</th>
-                            <th>Date saved</th>
-                            <th>Correct answers</th>
-                            <th>Incorrect answers</th>
-                            <th>Total questions</th>
-                            <th>Time taken</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {testResults.map((result, idx) => {
-                            return (
-                                <tr key={idx}>
-                                    <td>{result.id}</td>
-                                    <td>{result.date_time}</td>
-                                    <td>{result.num_correct}</td>
-                                    <td>{result.num_incorrect}</td>
-                                    <td>{result.total_questions}</td>
-                                    <td>{formatTime(result.total_time)}</td>
-                                    <td>
-                                        <DeleteButton onClick={() => deleteResult(result.id)} />
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                <TableContainer component={Paper} sx={{
+                    alignSelf: "center",
+                    marginTop: "40px",
+                    boxShadow: `2px 2px 8px 2px ${theme.palette.general.black}`,
+                }}>
+                       <Table >
+                        <TableHead>
+                            <TableRow sx={{
+                                backgroundColor: theme.palette.general.black,
+                                "th:first-child": {
+                                    borderTopLeftRadius: "10px",
+                                },
+                                "th:last-child": {
+                                    borderTopRightRadius: "10px",
+                                }
+                            }}>
+                                <CustomTableCell isTableHeading childText="Test no." />
+                                <CustomTableCell isTableHeading alignRight childText="Date saved" />
+                                <CustomTableCell isTableHeading alignRight childText="Correct answers" />
+                                <CustomTableCell isTableHeading alignRight childText="Incorrect answers" />
+                                <CustomTableCell isTableHeading alignRight childText="Total questions" />
+                                <CustomTableCell isTableHeading alignRight childText="Time taken" />
+                                <TableCell></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {testResults.map((result, idx) => {
+                                return (
+                                    <TableRow key={idx} sx={{
+                                        backgroundColor: idx % 2 === 0 ? theme.palette.primary.grey : null,
+                                    }}>
+                                        <CustomTableCell childText={result.id} />
+                                        <CustomTableCell alignRight childText={result.date_time} />
+                                        <CustomTableCell alignRight childText={result.num_correct} />
+                                        <CustomTableCell alignRight childText={result.num_incorrect} />
+                                        <CustomTableCell alignRight childText={result.total_questions} />
+                                        <CustomTableCell alignRight childText={formatTime(result.total_time)} />
+                                        <CustomTableCell alignRight childText={
+                                            <DeleteButton onClick={() => deleteResult(result.id)} />
+                                        }/>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )}
-        </div>
+        </Box>
     );
 };
 
