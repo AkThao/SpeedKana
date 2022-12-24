@@ -11,6 +11,7 @@ import Test from "./routes/Test";
 import Stats from "./routes/Stats";
 import ErrorPage from "./routes/ErrorPage";
 import theme from "./Theme/Theme";
+import { AppProvider } from "./Context";
 
 const router = createBrowserRouter([
   {
@@ -30,9 +31,11 @@ const router = createBrowserRouter([
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <AppProvider>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

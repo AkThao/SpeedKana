@@ -4,6 +4,8 @@ import { CorrectCharacter, AbortButton, CustomInput, ProgressBar, TestCharacter,
 import { useTheme } from "@mui/material";
 import { Box } from "@mui/material";
 import { CustomParagraph } from "../components";
+import { AppContext } from "../Context";
+import { useContext } from "react";
 
 const Test = () => {
     const theme = useTheme();
@@ -20,6 +22,7 @@ const Test = () => {
     const [correctAnsVisible, setCorrectAnsVisible] = useState(false);
     const [timeoutId, setTimeoutId] = useState(0);
     const testSet = useRef({});
+    const app = useContext(AppContext);
 
     const testData = useMemo(() => {
         return {
@@ -112,16 +115,11 @@ const Test = () => {
             saveResults();
         }
         else if (isStartOfTest) {
-            // Create test set - will eventually use props to set the test mode and customise the test set
-            // But for now the default set is all Kana
-            testSet.current = {
-                ...kana["hiragana"],
-                // ...kana["hiragana-diacritics"],
-                // ...kana["hiragana-digraphs"],
-                // ...kana["katakana"],
-                // ...kana["katakana-diacritics"],
-                // ...kana["katakana-digraphs"]
-            }
+            Object.entries(app.characterSet).forEach((entry) => {
+                if (entry[1]) {
+                    Object.assign(testSet.current, kana[entry[0]]);
+                }
+            })
 
             let keys = Object.keys(testSet.current); // keys is an array
             setTestChar(() => (
@@ -130,7 +128,7 @@ const Test = () => {
             setNumRemainingChars(keys.length);
             setIsStartOfTest(false);
         }
-    }, [isComplete, saveResults, isStartOfTest])
+    }, [app.characterSet, isComplete, saveResults, isStartOfTest])
 
     return (
         <Box sx={{

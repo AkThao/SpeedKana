@@ -47,7 +47,7 @@
         "を": "wo",
         "ん": "n"
     },
-    "hiragana-diacritics": {
+    "hiraganaDiacritics": {
         "が": "ga",
         "ぎ": "gi",
         "ぐ": "gu",
@@ -74,7 +74,7 @@
         "ぺ": "pe",
         "ぽ": "po"
     },
-    "hiragana-digraphs": {
+    "hiraganaDigraphs": {
         "きゃ": "kya",
         "きゅ": "kyu",
         "きょ": "kyo",
@@ -160,7 +160,7 @@
         "ヲ": "wo",
         "ン": "n"
     },
-    "katakana-diacritics": {
+    "katakanaDiacritics": {
         "ガ": "ga",
         "ギ": "gi",
         "グ": "gu",
@@ -187,7 +187,7 @@
         "ペ": "pe",
         "ポ": "po"
     },
-    "katakana-digraphs": {
+    "katakanaDigraphs": {
         "キャ": "kya",
         "キュ": "kyu",
         "キョ": "kyo",
