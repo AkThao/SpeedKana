@@ -49,7 +49,7 @@ const Home = () => {
                 fontStyle: "italic",
                 fontWeight: "light",
                 marginBottom: "30px",
-            }}>Test and hone your knowledge of the Japanese kana system</Typography>
+            }}>Test and hone your knowledge of the Japanese kana system.</Typography>
             <StartButton />
             <LastTestScore />
             <Link to={`stats`}>
