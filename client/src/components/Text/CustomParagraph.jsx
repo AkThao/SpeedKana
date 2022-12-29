@@ -10,6 +10,7 @@ const CustomParagraph = (props) => {
             color: props.color || theme.palette.general.white,
             textAlign: "center",
             fontSize: props.fontSize,
+            lineHeight: props.lineHeight,
         }}>
             {props.childText}
         </Typography>

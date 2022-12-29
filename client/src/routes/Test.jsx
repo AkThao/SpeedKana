@@ -19,6 +19,7 @@ const Test = () => {
     const [numIncorrectAnswers, setNumIncorrectAnswers] = useState(0);
     const [numRemainingChars, setNumRemainingChars] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [correctAnsVisible, setCorrectAnsVisible] = useState(false);
     const [timeoutId, setTimeoutId] = useState(0);
@@ -48,13 +49,14 @@ const Test = () => {
 
     const checkAnswer = () => {
         if (inputAnswer === testSet.current[testChar]) {
-            setCorrectAnswer("✓");
             setNumCorrectAnswers((prev) => (prev + 1));
+            setIsAnswerCorrect(true);
         }
         else {
-            setCorrectAnswer(testSet.current[testChar]);
             setNumIncorrectAnswers((prev) => (prev + 1));
+            setIsAnswerCorrect(false);
         }
+        setCorrectAnswer(testSet.current[testChar]);
         showCorrectAnswer();
         nextQuestion();
     }
@@ -64,7 +66,7 @@ const Test = () => {
         window.clearTimeout(timeoutId);
         setTimeoutId(setTimeout(() => {
             setCorrectAnsVisible(false);
-        }, 1000));
+        }, 2000));
     }
 
     const nextQuestion = () => {
@@ -157,7 +159,7 @@ const Test = () => {
                 marginBottom: "40px",
             }}>
                 <TestCharacter testChar={testChar} />
-                <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAnswer={correctAnswer} />
+                <CorrectCharacter correctAnsVisible={correctAnsVisible} correctAnswer={correctAnswer} isCorrect={isAnswerCorrect} />
             </Box>
             <CustomInput answer={inputAnswer} changeAnswer={changeAnswer} submitAnswer={checkAnswer} isTestComplete={isComplete} isTestPaused={isPaused} />
             { isComplete ? <CustomParagraph fontSize="30px" color={theme.palette.primary.green} childText={`Test complete!`} /> : null }
