@@ -1,4 +1,5 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
+import { setupDB } from "./DB/dbHandler";
 
 export const AppContext = createContext();
 
@@ -13,6 +14,7 @@ export const AppProvider = ({ children }) => {
         "katakanaDigraphs": false,
     })
     const [isCharsetErrMsgOpen, setIsCharsetErrMsgOpen] = useState(false);
+    const [isInServerMode, setIsInServerMode] = useState(false);
 
     const updateCharacterSet = (nameIdx) => {
         setCharacterSet((prev) => {
@@ -27,6 +29,10 @@ export const AppProvider = ({ children }) => {
         })
     }
 
+    useEffect(() => {
+        setupDB();
+    })
+
     return (
         <AppContext.Provider
             value={{
@@ -34,6 +40,8 @@ export const AppProvider = ({ children }) => {
                 updateCharacterSet,
                 isCharsetErrMsgOpen,
                 setIsCharsetErrMsgOpen,
+                isInServerMode,
+                setIsInServerMode,
             }}
         >
             {children}

@@ -1,59 +1,85 @@
 import { HomeButton, DeleteButton, CustomTableCell, CustomParagraph } from "../components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from "../Context";
 import formatTime from "../utils/formatTime";
 import { Box, Paper, Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useTheme } from "@mui/material";
+import { deleteAllTests, deleteTest, getAllTests } from "../DB/dbHandler";
 
 const Stats = () => {
+    const app = useContext(AppContext);
     const theme = useTheme();
 
     const [testResults, setTestResults] = useState("");
 
     const deleteResult = (resultId) => {
-        fetch("/api/stats/delete", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ "id": resultId }),
-        }).then((res) => {
-            if (res.ok) return res.json();
-            return res.json().then(json => Promise.reject(json));
-        }).then((res) => {
-            setTestResults(res);
-        }).catch((err) => {
-            console.error(err);
-        })
+        if (app.isInServerMode) {
+            // Delete test result from server database
+            fetch("/api/stats/delete", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ "id": resultId }),
+            }).then((res) => {
+                if (res.ok) return res.json();
+                return res.json().then(json => Promise.reject(json));
+            }).then((res) => {
+                setTestResults(res);
+            }).catch((err) => {
+                console.error(err);
+            })
+        } else {
+            // Delete test result from IndexedDB
+            deleteTest(resultId);
+            fetchStats();
+        }
     }
 
     const deleteAllResults = () => {
-        fetch("/api/stats/delete-all", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }).then((res) => {
-            if (res.ok) return res.json();
-            return res.json().then(json => Promise.reject(json));
-        }).then((res) => {
-            setTestResults(res);
-        }).catch((err) => {
-            console.error(err);
-        })
+        if (app.isInServerMode) {
+            // Delete all test results from server database
+            fetch("/api/stats/delete-all", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            }).then((res) => {
+                if (res.ok) return res.json();
+                return res.json().then(json => Promise.reject(json));
+            }).then((res) => {
+                setTestResults(res);
+            }).catch((err) => {
+                console.error(err);
+            })
+        } else {
+            // Delete all test results from IndexedDB
+            deleteAllTests();
+            fetchStats();
+        }
     }
 
     const fetchStats = () => {
-        fetch("/api/stats/all")
-        .then((res) => {
-            if (res.ok) return res.json();
-            return res.json().then(json => Promise.reject(json));
-        })
-        .then((res) => {
-            setTestResults(res);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+        if (app.isInServerMode) {
+            // Retrieve all test stats from server database
+            fetch("/api/stats/all")
+            .then((res) => {
+                if (res.ok) return res.json();
+                return res.json().then(json => Promise.reject(json));
+            })
+            .then((res) => {
+                setTestResults(res);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+        } else {
+            // Retrieve all test stats from IndexedDB
+            getAllTests()
+            .then((res) => {
+                setTestResults(res);
+            })
+        }
     }
 
     useEffect(() => {

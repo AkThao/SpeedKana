@@ -1,7 +1,9 @@
 import { Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useTheme } from "@mui/material";
 import formatTime from "../utils/formatTime";
+import { getLatestTest } from "../DB/dbHandler";
+import { AppContext } from "../Context";
 
 const CustomTypography = ({ innerText }) => {
     const theme = useTheme();
@@ -21,29 +23,47 @@ const LastTestScore = () => {
     const [numIncorrect, setNumIncorrect] = useState(null);
     const [timeTaken, setTimeTaken] = useState(null);
     const [testExists, setTestExists] = useState(null);
+    const app = useContext(AppContext);
 
     const fetchLatestStats = () => {
-        fetch("/api/stats/latest", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(async (res) => {
-            if (res.ok) return res.json();
-            const json = await res.json();
-            return await Promise.reject(json);
-        }).then((res) => {
-            if (res.length === 0) {
-                setTestExists(false);
-            } else {
-                setTestExists(true);
-                setNumCorrect(res[0].num_correct);
-                setNumIncorrect(res[0].num_incorrect);
-                setTimeTaken(res[0].total_time);
-            }
-        }).catch((err) => {
-            console.error(err);
-        })
+        if (app.isInServerMode) {
+            // Retrieve latest test stats from server database
+            fetch("/api/stats/latest", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(async (res) => {
+                if (res.ok) return res.json();
+                const json = await res.json();
+                return await Promise.reject(json);
+            }).then((res) => {
+                if (res.length === 0) {
+                    setTestExists(false);
+                } else {
+                    setTestExists(true);
+                    setNumCorrect(res[0].num_correct);
+                    setNumIncorrect(res[0].num_incorrect);
+                    setTimeTaken(res[0].total_time);
+                }
+            }).catch((err) => {
+                console.error(err);
+            })
+        } else {
+            // Retrieve latest test stats from IndexedDB
+            getLatestTest()
+            .then((res) => {
+                if (res.length === 0) {
+                    setTestExists(false);
+                } else {
+                    setTestExists(true);
+                    setNumCorrect(res[0].num_correct);
+                    setNumIncorrect(res[0].num_incorrect);
+                    setTimeTaken(res[0].total_time);
+                }
+            })
+        }
+
     }
 
     useEffect(() => {

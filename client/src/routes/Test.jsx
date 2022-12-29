@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import { CustomParagraph } from "../components";
 import { AppContext } from "../Context";
 import { useContext } from "react";
+import { saveTest } from "../DB/dbHandler";
 
 const Test = () => {
     const theme = useTheme();
@@ -93,21 +94,27 @@ const Test = () => {
     }
 
     const saveResults = useCallback(() => {
-        // Save test results to database
-        fetch("/api/stats/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(testData),
-        }).then((res) => {
-            if (res.ok) return res.json();
-            return res.json().then(json => Promise.reject(json));
-        }).then(({ message }) => {
-            console.log(message);
-        }).catch((err) => {
-            console.error(err);
-        })
+        if (app.isInServerMode) {
+            // Save test results to server-side SQLite database
+            fetch("/api/stats/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(testData),
+            }).then((res) => {
+                if (res.ok) return res.json();
+                return res.json().then(json => Promise.reject(json));
+            }).then(({ message }) => {
+                console.log(message);
+            }).catch((err) => {
+                console.error(err);
+            })
+        } else {
+            // Save test results to client-side IndexedDB
+            saveTest(testData);
+        }
+
     }, [testData]);
 
     useEffect(() => {
