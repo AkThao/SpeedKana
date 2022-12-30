@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useTheme } from "@mui/material";
 import formatTime from "../utils/formatTime";
 import { getLatestTest } from "../DB/dbHandler";
@@ -25,7 +25,7 @@ const LastTestScore = () => {
     const [testExists, setTestExists] = useState(null);
     const app = useContext(AppContext);
 
-    const fetchLatestStats = () => {
+    const fetchLatestStats = useCallback(() => {
         if (app.isInServerMode) {
             // Retrieve latest test stats from server database
             fetch("/api/stats/latest", {
@@ -65,12 +65,11 @@ const LastTestScore = () => {
                 console.error(err);
             })
         }
-
-    }
+    }, [app.isInServerMode]);
 
     useEffect(() => {
         fetchLatestStats();
-    }, []);
+    }, [fetchLatestStats]);
 
     return (
         <div style={{ margin: "20px 0px" }}>

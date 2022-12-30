@@ -1,5 +1,5 @@
 import { HomeButton, DeleteButton, CustomTableCell, CustomParagraph } from "../components";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { AppContext } from "../Context";
 import formatTime from "../utils/formatTime";
 import { Box, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
@@ -59,7 +59,7 @@ const Stats = () => {
         }
     }
 
-    const fetchStats = () => {
+    const fetchStats = useCallback(() => {
         if (app.isInServerMode) {
             // Retrieve all test stats from server database
             fetch("/api/stats/all")
@@ -80,11 +80,11 @@ const Stats = () => {
                 setTestResults(res);
             })
         }
-    }
+    }, [app.isInServerMode]);
 
     useEffect(() => {
         fetchStats();
-    }, []);
+    }, [fetchStats]);
 
     return (
         <Box sx={{

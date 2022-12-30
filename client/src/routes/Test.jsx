@@ -117,7 +117,7 @@ const Test = () => {
             saveTest(testData);
         }
 
-    }, [testData]);
+    }, [testData, app.isInServerMode]);
 
     useEffect(() => {
         if (isComplete) {
