@@ -2,7 +2,7 @@ import { HomeButton, DeleteButton, CustomTableCell, CustomParagraph } from "../c
 import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../Context";
 import formatTime from "../utils/formatTime";
-import { Box, Paper, Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { deleteAllTests, deleteTest, getAllTests } from "../DB/dbHandler";
 
@@ -122,7 +122,14 @@ const Stats = () => {
                                 <CustomTableCell isTableHeading alignRight childText="Total questions" />
                                 <CustomTableCell isTableHeading alignRight childText="Time taken" />
                                 <CustomTableCell alignRight childText={
-                                    <DeleteButton deleteAll onClick={() => deleteAllResults()} />
+                                    <Tooltip
+                                        title={"This action will delete all your progress and cannot be undone."}
+                                        arrow
+                                        placement="top"
+                                        enterDelay={0}
+                                    >
+                                        <DeleteButton deleteAll onClick={() => deleteAllResults()} />
+                                    </Tooltip>
                                 }/>
                             </TableRow>
                         </TableHead>

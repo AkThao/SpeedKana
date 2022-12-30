@@ -1,5 +1,4 @@
-import { useState, createContext, useEffect } from "react";
-import { setupDB } from "./DB/dbHandler";
+import { useState, createContext } from "react";
 
 export const AppContext = createContext();
 
@@ -28,10 +27,6 @@ export const AppProvider = ({ children }) => {
             }
         })
     }
-
-    useEffect(() => {
-        setupDB();
-    })
 
     return (
         <AppContext.Provider

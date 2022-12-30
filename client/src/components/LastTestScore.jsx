@@ -61,6 +61,8 @@ const LastTestScore = () => {
                     setNumIncorrect(res[0].num_incorrect);
                     setTimeTaken(res[0].total_time);
                 }
+            }).catch((err) => {
+                console.error(err);
             })
         }
 

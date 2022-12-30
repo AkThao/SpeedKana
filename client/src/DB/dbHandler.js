@@ -1,67 +1,49 @@
-import { openDB } from "idb";
+import { deleteDB, openDB } from "idb";
 
 export const DB_NAME = "statsDB";
 export const OBJECTSTORE_NAME = "stats";
+
+const upgrade = (db) => {
+    if (!db.objectStoreNames.contains(OBJECTSTORE_NAME)) {
+        db.createObjectStore(OBJECTSTORE_NAME, { keyPath: "id", autoIncrement: true });
+    }
+};
 
 export const setupDB = async () => {
     // Check for IndexedDB support
     if (!("indexedDB" in window)) {
         console.log("This browser does not support IndexedDB.");
         return;
-    }
+    };
 
-    // Set up DB
-    const db = await openDB(DB_NAME, 1, {
-        upgrade(db) {
-            if (!db.objectStoreNames.contains(OBJECTSTORE_NAME)) {
-                db.createObjectStore(OBJECTSTORE_NAME, { keyPath: "id", autoIncrement: true });
-            }
-        },
-    });
-
-    db.close();
-}
-
+    await openDB(DB_NAME, 1, { upgrade });
+};
 
 export const getLatestTest = async () => {
-    const db = await openDB(DB_NAME, 1);
-
-    // Retrieve latest test data from DB\
-    let tx = db.transaction(OBJECTSTORE_NAME, "readonly");
-    let store = tx.objectStore(OBJECTSTORE_NAME);
-
-    // We could get the last test result by counting the records in the object store then using store.get(id), where id == count
-    // But if a test result other than the last one is deleted then the ids will no longer align with the indices
-    // Hence, we're using store.getAll() then indexing the last element in the returned array
-    let allTests = await store.getAll();
-    if (allTests.length === 0) {
+    return openDB(DB_NAME, 1, { upgrade })
+    .then(async (db) => {
+        const allTests = await db.getAll(OBJECTSTORE_NAME);
+        if (allTests.length === 0) {
+            db.close();
+            return allTests;
+        }
+        let latestTest = [allTests[allTests.length - 1]];
         db.close();
-        return allTests;
-    }
-
-    let latestTest = [allTests[allTests.length - 1]];
-
-    db.close();
-
-    return latestTest;
-}
+        return latestTest;
+    })
+};
 
 export const getAllTests = async () => {
-    const db = await openDB(DB_NAME, 1);
-
-    // Retrieve all test data from DB
-    let tx = db.transaction(OBJECTSTORE_NAME, "readonly");
-    let store = tx.objectStore(OBJECTSTORE_NAME);
-
-    let allTests = await store.getAll();
-
-    db.close();
-
-    return allTests;
-}
+    return openDB(DB_NAME, 1, { upgrade })
+    .then(async (db) => {
+        const allTests = await db.getAll(OBJECTSTORE_NAME);
+        db.close();
+        return allTests;
+    });
+};
 
 export const saveTest = async (testData) => {
-    const db = await openDB(DB_NAME, 1);
+    const db = await openDB(DB_NAME, 1, { upgrade });
 
     // Write test data to DB
     let tx = db.transaction(OBJECTSTORE_NAME, "readwrite");
@@ -73,28 +55,26 @@ export const saveTest = async (testData) => {
     await store.put(testData);
 
     db.close();
-}
+};
 
 export const deleteTest = async (testId) => {
-    const db = await openDB(DB_NAME, 1);
+    const db = await openDB(DB_NAME, 1, { upgrade });
 
-    // Clear all data from IndexedDB
+    // Clear data for testId from IndexedDB
     let tx = db.transaction(OBJECTSTORE_NAME, "readwrite");
     let store = tx.objectStore(OBJECTSTORE_NAME);
 
     await store.delete(testId);
 
     db.close();
-}
+};
 
 export const deleteAllTests = async () => {
-    const db = await openDB(DB_NAME, 1);
-
-    // Clear all data from IndexedDB
-    let tx = db.transaction(OBJECTSTORE_NAME, "readwrite");
-    let store = tx.objectStore(OBJECTSTORE_NAME);
-
-    await store.clear();
-
-    db.close();
-}
+    await deleteDB(DB_NAME, {
+        blocked() {
+            console.log("Database deletion blocked");
+        },
+    }).then(() => {
+        console.log("Database deleted");
+    });
+};
