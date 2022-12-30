@@ -3,7 +3,7 @@ import CustomButton from "./CustomButton";
 
 const HomeButton = () => {
     return (
-        <Link to={`/`}>
+        <Link to={`/`} style={{ textDecoration: "none" }}>
             <CustomButton buttonText="Home" />
         </Link>
     )

@@ -52,7 +52,7 @@ const Home = () => {
             }}>Test and hone your knowledge of the Japanese kana system.</Typography>
             <StartButton />
             <LastTestScore />
-            <Link to={`stats`}>
+            <Link to={`stats`} style={{ textDecoration: "none" }}>
                 <CustomButton buttonText="Stats" />
             </Link>
             <Box sx={{ marginTop: "40px" }}>

@@ -6,7 +6,7 @@ const StartButton = () => {
     const theme = useTheme();
 
     return (
-        <Link to={`test`}>
+        <Link to={`test`} style={{ textDecoration: "none" }}>
             <Button sx={{
                 color: theme.palette.general.black,
                 backgroundColor: theme.palette.primary.main,
