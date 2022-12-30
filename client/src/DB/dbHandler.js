@@ -51,7 +51,14 @@ export const saveTest = async (testData) => {
 
     // Add date and time of test to stats
     const now = new Date();
-    testData["date_time"] = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = now.toLocaleString("default", { month: "short" });
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    // const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    testData["date_time"] = day + '-' + month + '-' + year + ' ' + hours + ':' + minutes;
     await store.put(testData);
 
     db.close();
