@@ -1,8 +1,10 @@
 import { TextField, Box } from "@mui/material";
 import { useTheme } from "@mui/material";
+import { useEffect, useRef } from "react";
 
 const CustomInput = props => {
     const theme = useTheme();
+    const inputField = useRef(null);
 
     const handleChange = (e) => {
         props.changeAnswer(e.target.value);
@@ -12,6 +14,12 @@ const CustomInput = props => {
         e.preventDefault();
         props.submitAnswer();
     }
+
+    useEffect(() => {
+        if (props.isTestComplete) {
+            inputField.current.blur();
+        }
+    }, [props.isTestComplete]);
 
     return (
         <Box sx={{
@@ -27,7 +35,16 @@ const CustomInput = props => {
                         fontSize: "20px",
                         padding: "10px 16px",
                     }
-                }} type="text" autoFocus placeholder="Type Romaji here..." variant="filled" color="primary" value={props.answer} onChange={handleChange} disabled={props.isTestComplete || props.isTestPaused} />
+                }}
+                type="text"
+                autoFocus
+                placeholder="Type Romaji here..."
+                variant="filled"
+                color="primary"
+                value={props.answer}
+                onChange={handleChange}
+                disabled={props.isTestComplete || props.isTestPaused}
+                inputRef={inputField} />
             </form>
         </Box>
     );
