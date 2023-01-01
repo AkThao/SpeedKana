@@ -12,6 +12,7 @@ import Stats from "./routes/Stats";
 import ErrorPage from "./routes/ErrorPage";
 import theme from "./Theme/Theme";
 import { AppProvider } from "./Context";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ ReactDOM.render(
     <AppProvider>
       <ThemeProvider theme={theme}>
         <RouterProvider router={router} />
+        <Footer />
       </ThemeProvider>
     </AppProvider>
   </React.StrictMode>,
