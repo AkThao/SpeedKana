@@ -48,7 +48,7 @@ const Test = () => {
     };
 
     const checkAnswer = () => {
-        if (inputAnswer === testSet.current[testChar]) {
+        if (inputAnswer.toLowerCase() === testSet.current[testChar]) {
             setNumCorrectAnswers((prev) => (prev + 1));
             setIsAnswerCorrect(true);
         }
