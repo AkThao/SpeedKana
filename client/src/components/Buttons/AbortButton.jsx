@@ -6,7 +6,7 @@ const AbortButton = () => {
     const theme = useTheme();
 
     return (
-        <Link to={`/`}>
+        <Link to={`/`} style={{ textDecoration: "none" }}>
             <Button
                 sx={{
                     color: theme.palette.general.white,
