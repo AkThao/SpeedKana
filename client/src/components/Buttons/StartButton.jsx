@@ -16,7 +16,7 @@ const StartButton = () => {
                 fontSize: "24px",
                 fontWeight: "bold",
                 padding: "10px 20px",
-            }}>Start</Button>
+            }}>Start<span style={{ display: "none" }}>Test</span></Button>
         </Link>
     )
 }
