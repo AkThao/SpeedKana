@@ -16,7 +16,12 @@ const StartButton = () => {
                 fontSize: "24px",
                 fontWeight: "bold",
                 padding: "10px 20px",
-            }}>Start<span style={{ display: "none" }}>Test</span></Button>
+            }}>Start<span style={{
+                clip: "rect(1px, 1px, 1px, 1px)",
+                clipPath: "inset(50%)",
+                WebkitClipPath: "inset(50%)",
+                position: "absolute",
+            }}>Test</span></Button>
         </Link>
     )
 }
