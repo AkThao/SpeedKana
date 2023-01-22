@@ -31,6 +31,7 @@ const Footer = () => {
                     color={theme.palette.primary.grey}
                     target="_blank"
                     rel="noopener"
+                    aria-label="Source code for this project"
                 >
                     <GitHubIcon />
                 </Link>
