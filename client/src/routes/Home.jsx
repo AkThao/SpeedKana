@@ -7,6 +7,7 @@ import { useContext, useEffect } from "react";
 
 const Home = () => {
     const app = useContext(AppContext);
+    const setErrMsgOpen = app.setIsCharsetErrMsgOpen;
     const theme = useTheme();
 
     const characterSetNames = {
@@ -27,8 +28,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-        app.setIsCharsetErrMsgOpen(false);
-    }, [app.setIsCharsetErrMsgOpen]);
+        setErrMsgOpen(false);
+    }, [setErrMsgOpen]);
 
     return (
         <Box sx={{
